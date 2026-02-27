@@ -1,0 +1,105 @@
+name: Power Query API
+description: Power Query is a data transformation and mashup engine used across Microsoft products including Excel, Power BI, and Azure. This API collection provides programmatic access to Power Query functionality for data connectivity, transformation, and integration.
+url: https://docs.microsoft.com/en-us/power-query/
+type: Index
+created: 2024-01-20 00:00:00+00:00
+modified: 2024-01-20 00:00:00+00:00
+tags:
+- Data Transformation
+- ETL
+- Data Integration
+- Business Intelligence
+- Microsoft
+apis:
+- name: Power Query REST API
+  description: REST API for executing Power Query mashups and managing data transformations
+  baseURL: https://api.powerquery.microsoft.com/v1.0
+  humanURL: https://docs.microsoft.com/en-us/power-query/power-query-rest-api
+  properties:
+  - type: Documentation
+    url: https://docs.microsoft.com/en-us/power-query/power-query-rest-api
+  - type: OpenAPI
+    url: https://api.powerquery.microsoft.com/swagger/v1/swagger.json
+  - type: Authentication
+    url: https://docs.microsoft.com/en-us/power-query/authentication
+  contact:
+  - type: Support
+    url: https://powerbi.microsoft.com/support/
+  tags:
+  - REST API
+  - Data Query
+  - Mashup Engine
+- name: Power Query M Formula Language
+  description: API and language reference for the M formula language used in Power Query
+  baseURL: https://docs.microsoft.com/powerquery-m/
+  humanURL: https://docs.microsoft.com/en-us/powerquery-m/
+  properties:
+  - type: Documentation
+    url: https://docs.microsoft.com/en-us/powerquery-m/
+  - type: Language Reference
+    url: https://docs.microsoft.com/en-us/powerquery-m/power-query-m-language-specification
+  - type: Function Reference
+    url: https://docs.microsoft.com/en-us/powerquery-m/power-query-m-function-reference
+  tags:
+  - M Language
+  - Formula Language
+  - Functions
+- name: Power Query Connectors API
+  description: API for building and managing custom data connectors for Power Query
+  baseURL: https://github.com/Microsoft/DataConnectors
+  humanURL: https://docs.microsoft.com/en-us/power-query/connectors/
+  properties:
+  - type: Documentation
+    url: https://docs.microsoft.com/en-us/power-query/installingsdk
+  - type: SDK
+    url: https://aka.ms/powerquerysdk
+  - type: GitHub Repository
+    url: https://github.com/Microsoft/DataConnectors
+  - type: Connector Reference
+    url: https://docs.microsoft.com/en-us/power-query/connectors/
+  tags:
+  - Connectors
+  - Data Sources
+  - SDK
+- name: Power Query Dataflows API
+  description: API for managing and executing Power Query dataflows in Power Platform
+  baseURL: https://api.powerbi.com/v1.0/myorg/groups/{groupId}/dataflows
+  humanURL: https://docs.microsoft.com/en-us/power-query/dataflows/
+  properties:
+  - type: Documentation
+    url: https://docs.microsoft.com/en-us/power-bi/transform-model/dataflows/dataflows-introduction-self-service
+  - type: REST API Reference
+    url: https://docs.microsoft.com/en-us/rest/api/power-bi/dataflows
+  - type: Authentication
+    url: https://docs.microsoft.com/en-us/power-bi/developer/embedded/embed-service-principal
+  contact:
+  - type: Support
+    url: https://powerbi.microsoft.com/support/
+  tags:
+  - Dataflows
+  - Power Platform
+  - Self-Service ETL
+maintainers:
+- name: Microsoft Corporation
+  email: powerbisupport@microsoft.com
+  url: https://powerbi.microsoft.com
+common:
+- type: Terms of Service
+  url: https://www.microsoft.com/en-us/servicesagreement/
+- type: Privacy Policy
+  url: https://privacy.microsoft.com/en-us/privacystatement
+- type: License
+  url: https://docs.microsoft.com/en-us/legal/termsofuse
+- type: Blog
+  url: https://powerbi.microsoft.com/blog/
+- type: Community
+  url: https://community.powerbi.com/
+- type: Pricing
+  url: https://powerbi.microsoft.com/pricing/
+- type: Status
+  url: https://powerbi.microsoft.com/status/
+include:
+- name: Power BI REST API
+  url: https://docs.microsoft.com/en-us/rest/api/power-bi/
+- name: Microsoft Graph API
+  url: https://docs.microsoft.com/en-us/graph/overview
