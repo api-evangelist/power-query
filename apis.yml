@@ -1,4 +1,4 @@
-name: Power Query API
+name: Power Query
 description: Power Query is a data transformation and mashup engine used across Microsoft products including Excel, Power BI, and Azure. This API collection provides programmatic access to Power Query functionality for data connectivity, transformation, and integration.
 url: https://docs.microsoft.com/en-us/power-query/
 type: Index
