@@ -1,17 +1,14 @@
 name: Power Query
-description: Power Query is a data transformation and mashup engine used across 
-  Microsoft products including Excel, Power BI, and Azure. This API collection 
-  provides programmatic access to Power Query functionality for data 
-  connectivity, transformation, and integration.
+description: Power Query is a data transformation and mashup engine used across Microsoft products including Excel, Power BI, and Azure. This API collection provides programmatic access to Power Query functionality for data connectivity, transformation, and integration.
 url: https://docs.microsoft.com/en-us/power-query/
 type: Index
 created: 2024-01-20 00:00:00+00:00
 modified: 2026-03-03 00:00:00+00:00
 tags:
+  - Business Intelligence
+  - Data Integration
   - Data Transformation
   - ETL
-  - Data Integration
-  - Business Intelligence
   - Microsoft
 apis:
   - name: Power Query REST API
@@ -27,15 +24,14 @@ apis:
       - type: Authentication
         url: https://docs.microsoft.com/en-us/power-query/authentication
       - type: Getting Started
-        url: 
-          https://learn.microsoft.com/en-us/power-query/power-query-what-is-power-query
+        url: https://learn.microsoft.com/en-us/power-query/power-query-what-is-power-query
     contact:
       - type: Support
         url: https://powerbi.microsoft.com/support/
     tags:
-      - REST API
       - Data Query
       - Mashup Engine
+      - REST API
   - name: Power Query M Formula Language
     description: >-
       API and language reference for the M formula language used in Power Query.
@@ -45,21 +41,17 @@ apis:
       - type: Documentation
         url: https://docs.microsoft.com/en-us/powerquery-m/
       - type: Language Reference
-        url: 
-          https://docs.microsoft.com/en-us/powerquery-m/power-query-m-language-specification
+        url: https://docs.microsoft.com/en-us/powerquery-m/power-query-m-language-specification
       - type: Function Reference
-        url: 
-          https://docs.microsoft.com/en-us/powerquery-m/power-query-m-function-reference
+        url: https://docs.microsoft.com/en-us/powerquery-m/power-query-m-function-reference
       - type: Getting Started
-        url: 
-          https://learn.microsoft.com/en-us/powerquery-m/quick-tour-of-the-power-query-m-formula-language
+        url: https://learn.microsoft.com/en-us/powerquery-m/quick-tour-of-the-power-query-m-formula-language
       - type: Type System
-        url: 
-          https://learn.microsoft.com/en-us/powerquery-m/power-query-m-type-system
+        url: https://learn.microsoft.com/en-us/powerquery-m/power-query-m-type-system
     tags:
-      - M Language
       - Formula Language
       - Functions
+      - M Language
   - name: Power Query Connectors API
     description: >-
       API for building and managing custom data connectors for Power Query.
@@ -75,14 +67,11 @@ apis:
       - type: Connector Reference
         url: https://docs.microsoft.com/en-us/power-query/connectors/
       - type: Authentication
-        url: 
-          https://learn.microsoft.com/en-us/power-query/handling-authentication
+        url: https://learn.microsoft.com/en-us/power-query/handling-authentication
       - type: Getting Started
-        url: 
-          https://learn.microsoft.com/en-us/power-query/creating-first-connector
+        url: https://learn.microsoft.com/en-us/power-query/creating-first-connector
       - type: Certification
-        url: 
-          https://learn.microsoft.com/en-us/power-query/connector-certification
+        url: https://learn.microsoft.com/en-us/power-query/connector-certification
     tags:
       - Connectors
       - Data Sources
@@ -94,16 +83,13 @@ apis:
     humanURL: https://docs.microsoft.com/en-us/power-query/dataflows/
     properties:
       - type: Documentation
-        url: 
-          https://docs.microsoft.com/en-us/power-bi/transform-model/dataflows/dataflows-introduction-self-service
+        url: https://docs.microsoft.com/en-us/power-bi/transform-model/dataflows/dataflows-introduction-self-service
       - type: REST API Reference
         url: https://docs.microsoft.com/en-us/rest/api/power-bi/dataflows
       - type: Authentication
-        url: 
-          https://docs.microsoft.com/en-us/power-bi/developer/embedded/embed-service-principal
+        url: https://docs.microsoft.com/en-us/power-bi/developer/embedded/embed-service-principal
       - type: Getting Started
-        url: 
-          https://learn.microsoft.com/en-us/power-bi/transform-model/dataflows/dataflows-introduction-self-service
+        url: https://learn.microsoft.com/en-us/power-bi/transform-model/dataflows/dataflows-introduction-self-service
     contact:
       - type: Support
         url: https://powerbi.microsoft.com/support/
@@ -116,28 +102,24 @@ apis:
       Development toolkit for building custom Power Query connectors using Visual
       Studio Code, including project scaffolding, testing, and packaging of .mez connector
       files.
-    baseURL: 
-      https://learn.microsoft.com/en-us/power-query/power-query-sdk-vs-code
+    baseURL: https://learn.microsoft.com/en-us/power-query/power-query-sdk-vs-code
     humanURL: https://learn.microsoft.com/en-us/power-query/install-sdk
     properties:
       - type: Documentation
-        url: 
-          https://learn.microsoft.com/en-us/power-query/power-query-sdk-vs-code
+        url: https://learn.microsoft.com/en-us/power-query/power-query-sdk-vs-code
       - type: Getting Started
         url: https://learn.microsoft.com/en-us/power-query/install-sdk
       - type: VS Code Extension
-        url: 
-          https://marketplace.visualstudio.com/items?itemName=PowerQuery.vscode-powerquery-sdk
+        url: https://marketplace.visualstudio.com/items?itemName=PowerQuery.vscode-powerquery-sdk
       - type: GitHub Repository
         url: https://github.com/microsoft/vscode-powerquery-sdk
       - type: Test Framework
-        url: 
-          https://learn.microsoft.com/en-us/power-query/sdk-testframework/1-set-up
+        url: https://learn.microsoft.com/en-us/power-query/sdk-testframework/1-set-up
     tags:
-      - SDK
-      - VS Code
       - Connector Development
+      - SDK
       - Tooling
+      - VS Code
   - name: Power Query Language Services
     description: >-
       Libraries providing intellisense, parsing, formatting, and other language services
@@ -154,37 +136,32 @@ apis:
       - type: Formatter
         url: https://github.com/microsoft/powerquery-formatter
       - type: VS Code Extension
-        url: 
-          https://marketplace.visualstudio.com/items?itemName=PowerQuery.vscode-powerquery
+        url: https://marketplace.visualstudio.com/items?itemName=PowerQuery.vscode-powerquery
     tags:
-      - Language Services
-      - Parser
       - Formatter
       - Intellisense
+      - Language Services
+      - Parser
       - Tooling
   - name: Fabric Power Query Programmatic API
     description: >-
       REST API for programmatically executing Power Query M transformations in Microsoft
       Fabric, enabling integration with Spark notebooks, pipelines, and external applications.
     baseURL: https://learn.microsoft.com/en-us/fabric/data-factory/
-    humanURL: 
-      https://blog.fabric.microsoft.com/en-US/blog/execute-power-query-programmatically-in-microsoft-fabric/
+    humanURL: https://blog.fabric.microsoft.com/en-US/blog/execute-power-query-programmatically-in-microsoft-fabric/
     properties:
       - type: Documentation
-        url: 
-          https://blog.fabric.microsoft.com/en-US/blog/execute-power-query-programmatically-in-microsoft-fabric/
+        url: https://blog.fabric.microsoft.com/en-US/blog/execute-power-query-programmatically-in-microsoft-fabric/
       - type: Pipeline REST API
-        url: 
-          https://learn.microsoft.com/en-us/fabric/data-factory/pipeline-rest-api
+        url: https://learn.microsoft.com/en-us/fabric/data-factory/pipeline-rest-api
       - type: Pipeline REST API Capabilities
-        url: 
-          https://learn.microsoft.com/en-us/fabric/data-factory/pipeline-rest-api-capabilities
+        url: https://learn.microsoft.com/en-us/fabric/data-factory/pipeline-rest-api-capabilities
     tags:
       - Microsoft Fabric
+      - Pipelines
       - Programmatic Execution
       - REST API
       - Spark
-      - Pipelines
 maintainers:
   - name: Microsoft Corporation
     email: powerbisupport@microsoft.com
@@ -198,8 +175,7 @@ common:
   - type: Website
     url: https://learn.microsoft.com/en-us/power-query/
   - type: Getting Started
-    url: 
-      https://www.microsoft.com/en-us/power-platform/products/power-bi/getting-started-with-power-bi
+    url: https://www.microsoft.com/en-us/power-platform/products/power-bi/getting-started-with-power-bi
   - type: Documentation
     url: https://learn.microsoft.com/en-us/power-query/
   - type: Blog
@@ -207,8 +183,7 @@ common:
   - type: GitHub
     url: https://github.com/MicrosoftDocs/powerquery-docs
   - type: Community
-    url: 
-      https://community.fabric.microsoft.com/t5/Power-Query/bd-p/power-bi-services
+    url: https://community.fabric.microsoft.com/t5/Power-Query/bd-p/power-bi-services
   - type: Support
     url: https://powerbi.microsoft.com/en-us/support/
   - type: Pricing
@@ -222,13 +197,11 @@ common:
   - type: License
     url: https://docs.microsoft.com/en-us/legal/termsofuse
   - type: Sign Up
-    url: 
-      https://www.microsoft.com/en-us/power-platform/products/power-bi/landing/free-account
+    url: https://www.microsoft.com/en-us/power-platform/products/power-bi/landing/free-account
   - type: Login
     url: https://app.powerbi.com/
   - type: Change Log
-    url: 
-      https://learn.microsoft.com/en-us/power-bi/fundamentals/desktop-change-log
+    url: https://learn.microsoft.com/en-us/power-bi/fundamentals/desktop-change-log
   - type: What's New
     url: https://learn.microsoft.com/en-us/power-bi/fundamentals/whats-new
   - type: Stack Overflow
