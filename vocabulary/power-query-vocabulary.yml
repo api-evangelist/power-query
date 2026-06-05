@@ -1,0 +1,148 @@
+vocabulary:
+  name: Power Query Vocabulary
+  description: >-
+    Key terms and concepts for Microsoft Power Query, a data transformation and
+    mashup engine used across Power BI, Excel, Azure Data Factory, and Microsoft
+    Fabric. Covers the M formula language, connector framework, dataflows, and
+    programmatic execution APIs.
+  version: "1.0"
+  terms:
+    - term: M Language
+      definition: >-
+        The functional, case-sensitive formula language used natively by Power Query
+        to define data transformation steps. M programs are sequences of expressions
+        that evaluate to a structured value such as a table, record, or list.
+      tags:
+        - language
+        - formula
+        - transformation
+
+    - term: Mashup Engine
+      definition: >-
+        The Power Query evaluation engine that executes M expressions, orchestrates
+        data source queries, performs query folding where possible, and returns
+        structured results to the host application (Power BI, Excel, Fabric, etc.).
+      tags:
+        - engine
+        - evaluation
+        - core
+
+    - term: Query Folding
+      definition: >-
+        An optimization technique where the Power Query engine translates M
+        transformation steps back into the native query language of the data source
+        (e.g., SQL) so that the source system executes the transformation instead of
+        the local engine, improving performance.
+      tags:
+        - optimization
+        - performance
+        - query
+
+    - term: Dataflow
+      definition: >-
+        A self-service ETL artifact in Power BI and Microsoft Fabric that stores
+        reusable Power Query transformations in cloud storage. Dataflows can be
+        refreshed on a schedule and consumed by multiple reports or downstream
+        dataflows.
+      tags:
+        - etl
+        - self-service
+        - refresh
+        - power-bi
+
+    - term: Custom Connector
+      definition: >-
+        A .mez extension package built with the Power Query SDK that enables
+        connection to a proprietary or unsupported data source. Custom connectors
+        implement a defined M function interface and are loaded by the host
+        application at runtime.
+      tags:
+        - connector
+        - sdk
+        - extensibility
+
+    - term: Connector SDK
+      definition: >-
+        A Visual Studio Code extension and set of libraries (Microsoft.PowerQuery.SdkTools)
+        that provides project scaffolding, an M expression engine for local testing,
+        a query diagnostics view, and packaging tools for building certified or
+        organizational Power Query connectors.
+      tags:
+        - sdk
+        - tooling
+        - vs-code
+        - development
+
+    - term: Incremental Refresh
+      definition: >-
+        A Power BI and Fabric feature that partitions a dataset by date range and
+        only refreshes partitions covering recent data, reducing refresh duration
+        and data source load for large historical datasets.
+      tags:
+        - refresh
+        - performance
+        - partitioning
+        - power-bi
+
+    - term: Data Source Kind
+      definition: >-
+        A named identifier in the M language and connector SDK that groups
+        credentials, capabilities, and function implementations belonging to a single
+        logical data source (e.g., "Salesforce", "PostgreSQL", "MyCustomAPI").
+      tags:
+        - connector
+        - credentials
+        - identity
+
+    - term: Fabric Data Pipeline
+      definition: >-
+        An orchestration artifact in Microsoft Fabric that sequences activities
+        (including Power Query transformations) into a workflow, manageable via the
+        Fabric REST API at api.fabric.microsoft.com/v1/workspaces/{workspaceId}/items.
+      tags:
+        - fabric
+        - pipeline
+        - orchestration
+        - rest-api
+
+    - term: Power Query Diagnostics
+      definition: >-
+        A built-in profiling and tracing feature that records evaluation steps,
+        data source request counts, query folding boundaries, and timing information
+        to help developers optimize M queries and connector performance.
+      tags:
+        - diagnostics
+        - profiling
+        - debugging
+
+    - term: Mashup Document
+      definition: >-
+        The serialized representation of one or more Power Query queries, including
+        their M source code, metadata, and dependency graph. Mashup documents are
+        embedded in Power BI .pbix files and dataflow JSON definitions.
+      tags:
+        - serialization
+        - document
+        - metadata
+
+    - term: Refresh Schedule
+      definition: >-
+        A configuration that defines when a dataflow or semantic model should be
+        automatically refreshed. Defined via the Power BI REST API or the Fabric
+        Job Scheduler API, supporting cron-style intervals and time-zone settings.
+      tags:
+        - scheduling
+        - automation
+        - refresh
+        - rest-api
+
+    - term: Activity Run
+      definition: >-
+        A single execution record for one activity within a Fabric Data Pipeline job
+        instance, capturing start/end time, status (Succeeded, Failed, Cancelled),
+        input parameters, output, and error details.
+      tags:
+        - fabric
+        - pipeline
+        - execution
+        - monitoring

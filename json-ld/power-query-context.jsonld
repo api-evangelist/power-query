@@ -1,0 +1,99 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "pq": "https://learn.microsoft.com/en-us/power-query/vocab#",
+    "pbi": "https://learn.microsoft.com/en-us/power-bi/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "PowerQuery": "pq:PowerQuery",
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": "schema:url",
+    "industry": "schema:industry",
+    "Organization": "schema:Organization",
+    "SoftwareApplication": "schema:SoftwareApplication",
+    "APIReference": "schema:TechArticle",
+
+    "powerQuery": {
+      "@id": "pq:PowerQuery",
+      "@type": "schema:SoftwareApplication"
+    },
+    "provider": {
+      "@id": "schema:provider",
+      "@type": "schema:Organization"
+    },
+    "Microsoft": {
+      "@id": "schema:Organization",
+      "schema:name": "Microsoft",
+      "schema:url": "https://www.microsoft.com"
+    },
+    "humanURL": "schema:url",
+    "baseURL": "schema:url",
+
+    "MLanguage": "pq:MLanguage",
+    "Dataflow": "pq:Dataflow",
+    "Connector": "pq:Connector",
+    "MashupEngine": "pq:MashupEngine",
+    "DataTransformation": "pq:DataTransformation",
+    "QueryFolding": "pq:QueryFolding",
+    "IncrementalRefresh": "pq:IncrementalRefresh",
+    "CustomConnector": "pq:CustomConnector",
+    "ConnectorSDK": "pq:ConnectorSDK",
+    "DataSource": "pq:DataSource",
+    "Query": "pq:Query",
+    "Step": "pq:Step",
+    "Table": "pq:Table",
+    "Column": "pq:Column",
+    "Record": "pq:Record",
+    "List": "pq:List",
+    "Binary": "pq:Binary",
+    "Function": "pq:Function",
+    "Expression": "pq:Expression",
+    "Environment": "pq:Environment",
+
+    "Dataflows": {
+      "@id": "pq:Dataflow",
+      "@container": "@set"
+    },
+    "dataflowId": {
+      "@id": "pbi:dataflowId",
+      "@type": "xsd:string"
+    },
+    "workspaceId": {
+      "@id": "pbi:workspaceId",
+      "@type": "xsd:string"
+    },
+    "refreshSchedule": "pbi:refreshSchedule",
+    "configuredBy": "pbi:configuredBy",
+    "dataSources": {
+      "@id": "pq:DataSource",
+      "@container": "@set"
+    },
+
+    "Pipeline": "pbi:Pipeline",
+    "pipelineId": {
+      "@id": "pbi:pipelineId",
+      "@type": "xsd:string"
+    },
+    "activities": {
+      "@id": "pbi:activity",
+      "@container": "@set"
+    },
+    "jobType": "pbi:jobType",
+    "status": "pbi:status",
+    "startTimeUtc": {
+      "@id": "pbi:startTimeUtc",
+      "@type": "xsd:dateTime"
+    },
+    "endTimeUtc": {
+      "@id": "pbi:endTimeUtc",
+      "@type": "xsd:dateTime"
+    },
+
+    "tags": {
+      "@id": "schema:keywords",
+      "@container": "@set"
+    }
+  }
+}
