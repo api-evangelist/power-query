@@ -6,7 +6,7 @@ description: >-
   programmatic access to Power Query functionality for data connectivity,
   transformation, and integration using the M formula language and connector SDK.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: >-
   https://raw.githubusercontent.com/api-evangelist/power-query/refs/heads/main/apis.yml
 created: '2024-01-01'
