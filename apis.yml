@@ -69,7 +69,7 @@ apis:
     properties:
       - type: Documentation
         url: https://docs.microsoft.com/en-us/power-query/installingsdk
-      - type: SDK
+      - type: SDKs
         url: https://aka.ms/powerquerysdk
       - type: GitHubRepository
         url: https://github.com/Microsoft/DataConnectors
@@ -152,7 +152,7 @@ common:
     url: https://www.microsoft.com/en-us/servicesagreement/
   - type: PrivacyPolicy
     url: https://privacy.microsoft.com/en-us/privacystatement
-  - type: SignUp
+  - type: Signup
     url: https://www.microsoft.com/en-us/power-platform/products/power-bi/landing/free-account
   - type: StackOverflow
     url: https://stackoverflow.com/questions/tagged/powerquery
