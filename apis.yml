@@ -132,6 +132,8 @@ apis:
       - type: APIReference
         url: https://learn.microsoft.com/en-us/fabric/data-factory/pipeline-rest-api
 common:
+  - type: DomainSecurity
+    url: security/power-query-domain-security.yml
   - type: Portal
     url: https://app.powerbi.com/
   - type: Documentation
