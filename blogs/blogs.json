@@ -3,10 +3,7 @@
   "feeds": [
     {
       "source": "https://community.fabric.microsoft.com/oxcrx34285/rss/board?board.id=fbc_pbiupdatesblog",
-      "feed_url": "https://community.fabric.microsoft.com/oxcrx34285/rss/board?board.id=fbc_pbiupdatesblog",
-      "title": "",
-      "saved": 2,
-      "method": "feed"
+      "error": "HTTPError"
     },
     {
       "source": "https://www.microsoft.com/en-us/power-platform/products/power-bi/getting-started-with-power-bi",
@@ -16,6 +13,6 @@
       "method": "none"
     }
   ],
-  "post_count": 39,
-  "fetched": "2026-06-27T12:03:07Z"
+  "post_count": 51,
+  "fetched": "2026-07-11T11:50:51Z"
 }
