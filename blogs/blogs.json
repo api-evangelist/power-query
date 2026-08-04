@@ -2,10 +2,6 @@
   "repo": "power-query",
   "feeds": [
     {
-      "source": "https://community.fabric.microsoft.com/oxcrx34285/rss/board?board.id=fbc_pbiupdatesblog",
-      "error": "HTTPError"
-    },
-    {
       "source": "https://www.microsoft.com/en-us/power-platform/products/power-bi/getting-started-with-power-bi",
       "feed_url": "https://www.microsoft.com/en-us/power-platform/products/power-bi/getting-started-with-power-bi",
       "title": "",
@@ -14,5 +10,5 @@
     }
   ],
   "post_count": 51,
-  "fetched": "2026-07-11T11:50:51Z"
+  "fetched": "2026-08-01T15:49:00Z"
 }
