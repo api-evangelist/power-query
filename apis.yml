@@ -144,6 +144,9 @@ apis:
       - type: APIReference
         url: https://learn.microsoft.com/en-us/fabric/data-factory/pipeline-rest-api
 common:
+  - type: License
+    name: MIT
+    url: https://github.com/Microsoft/DataConnectors/blob/master/LICENSE
   - type: DomainSecurity
     url: security/power-query-domain-security.yml
   - type: Portal
