@@ -3,199 +3,143 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
 provider: Power Query
 providerId: power-query
+generated: '2026-08-29'
+method: searched
+source: https://www.microsoft.com/en-us/power-platform/products/power-bi/pricing
+docs: https://azure.microsoft.com/en-us/pricing/details/microsoft-fabric/
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
+modified: '2026-08-29'
+provenance_note: >-
+  Replaces the 2026-05-04 bulk-sweep scaffold, which invented a
+  free/professional/enterprise API-request-quota model with TBD prices. Power
+  Query is not sold or metered as an API. It is a capability inside Power BI and
+  Microsoft Fabric, and it is licensed the way those products are licensed:
+  per-user seats for Power BI, and reserved or pay-as-you-go capacity units for
+  Fabric. Prices below were read from Microsoft's own pricing pages on
+  2026-08-29.
 tags:
   - Business Intelligence
   - Data Integration
-  - Data Transformation
-  - ETL
-  - Microsoft
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+  - Microsoft Fabric
+  - Power BI
+  - Pricing
+description: >-
+  Power Query itself is free and has no meter. It ships inside Excel, Power BI
+  Desktop and the Fabric web experience at no charge, and its language toolchain
+  and connector SDK are MIT-licensed on GitHub. What costs money is the service
+  that RUNS a Power Query mashup on a schedule or through the REST API: a Power
+  BI per-user license, or Fabric capacity. There is no API request quota, no
+  per-call price and no overage rate on this surface.
+billing_model: seat-and-capacity
+metered_by_api_call: false
 plans:
-  - id: power-query-free
-    name: Free
+  - id: power-query-embedded-free
+    name: Power Query (in Excel / Power BI Desktop)
+    type: free
+    price: '0.00'
+    currency: USD
+    description: >-
+      The Power Query editor, the M engine and 300+ connectors are included at no
+      cost in Excel and Power BI Desktop. No account or capacity required.
+    elements:
+      - name: Power Query editor
+      - name: M formula language
+      - name: Built-in connectors
+      - name: Power Query SDK for VS Code
+  - id: power-bi-free
+    name: Power BI Free account
     type: freemium
-    description: Free entry tier for the Power Query API surface. Intended for evaluation, prototyping,
-      and low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://api.powerquery.microsoft.com/v1.0
-          - https://docs.microsoft.com/powerquery-m/
-          - https://github.com/Microsoft/DataConnectors
-          - https://api.powerbi.com/v1.0/myorg/groups/{groupId}/dataflows
-          - https://learn.microsoft.com/en-us/power-query/power-query-sdk-vs-code
-          - https://learn.microsoft.com/en-us/fabric/data-factory/
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://api.powerquery.microsoft.com/v1.0
-          - https://docs.microsoft.com/powerquery-m/
-          - https://github.com/Microsoft/DataConnectors
-          - https://api.powerbi.com/v1.0/myorg/groups/{groupId}/dataflows
-          - https://learn.microsoft.com/en-us/power-query/power-query-sdk-vs-code
-          - https://learn.microsoft.com/en-us/fabric/data-factory/
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
+    price: '0.00'
+    currency: USD
+    billing_period: n/a
+    url: https://www.microsoft.com/en-us/power-platform/products/power-bi/landing/free-account
+    description: >-
+      Included in the Microsoft Fabric free account. Create rich, interactive
+      reports; no credit card required. Cannot share reports — upgrade to Pro or
+      Premium to publish.
     elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Power Query REST API
-      - name: Power Query M Formula Language
-      - name: Power Query Connectors API
-      - name: Power Query Dataflows API
-      - name: Power Query SDK
-      - name: Fabric Power Query Programmatic API
-  - id: power-query-pro
-    name: Professional
+      - name: Included in Microsoft Fabric free account
+      - name: No credit card required
+      - name: Trial capacity on any Fabric tool
+  - id: power-bi-pro
+    name: Power BI Pro
     type: paid
-    description: Production tier for Power Query. Provides higher quotas, priority support, and access
-      to the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://api.powerquery.microsoft.com/v1.0
-          - https://docs.microsoft.com/powerquery-m/
-          - https://github.com/Microsoft/DataConnectors
-          - https://api.powerbi.com/v1.0/myorg/groups/{groupId}/dataflows
-          - https://learn.microsoft.com/en-us/power-query/power-query-sdk-vs-code
-          - https://learn.microsoft.com/en-us/fabric/data-factory/
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://api.powerquery.microsoft.com/v1.0
-          - https://docs.microsoft.com/powerquery-m/
-          - https://github.com/Microsoft/DataConnectors
-          - https://api.powerbi.com/v1.0/myorg/groups/{groupId}/dataflows
-          - https://learn.microsoft.com/en-us/power-query/power-query-sdk-vs-code
-          - https://learn.microsoft.com/en-us/fabric/data-factory/
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains:
-          - https://api.powerquery.microsoft.com/v1.0
-          - https://docs.microsoft.com/powerquery-m/
-          - https://github.com/Microsoft/DataConnectors
-          - https://api.powerbi.com/v1.0/myorg/groups/{groupId}/dataflows
-          - https://learn.microsoft.com/en-us/power-query/power-query-sdk-vs-code
-          - https://learn.microsoft.com/en-us/fabric/data-factory/
-        unit: 1000
-        price: TBD
-        userMultiplied: false
+    price: '14.00'
+    currency: USD
+    unit: user/month
+    billing_period: yearly
+    description: >-
+      Access Power BI reports shared with you and publish your own. Included in
+      Microsoft 365 E5 and Office 365 E5.
     elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Power Query REST API
-      - name: Power Query M Formula Language
-      - name: Power Query Connectors API
-      - name: Power Query Dataflows API
-      - name: Power Query SDK
-      - name: Fabric Power Query Programmatic API
-  - id: power-query-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for Power Query. Includes dedicated capacity, contractual SLAs,
-      security review, data residency options, and named technical account management.
-    entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: configurable
-        domains:
-          - https://api.powerquery.microsoft.com/v1.0
-          - https://docs.microsoft.com/powerquery-m/
-          - https://github.com/Microsoft/DataConnectors
-          - https://api.powerbi.com/v1.0/myorg/groups/{groupId}/dataflows
-          - https://learn.microsoft.com/en-us/power-query/power-query-sdk-vs-code
-          - https://learn.microsoft.com/en-us/fabric/data-factory/
-        unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://api.powerquery.microsoft.com/v1.0
-          - https://docs.microsoft.com/powerquery-m/
-          - https://github.com/Microsoft/DataConnectors
-          - https://api.powerbi.com/v1.0/myorg/groups/{groupId}/dataflows
-          - https://learn.microsoft.com/en-us/power-query/power-query-sdk-vs-code
-          - https://learn.microsoft.com/en-us/fabric/data-factory/
-        unit: 1
-        price: custom
-        userMultiplied: false
+      - name: Publish and share Power BI reports
+      - name: Included in Microsoft 365 E5 / Office 365 E5
+  - id: power-bi-premium-per-user
+    name: Power BI Premium Per User
+    type: paid
+    price: '24.00'
+    currency: USD
+    unit: user/month
+    billing_period: yearly
+    description: >-
+      Everything in Pro plus enterprise-scale features for data professionals.
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Power Query REST API
-      - name: Power Query M Formula Language
-      - name: Power Query Connectors API
-      - name: Power Query Dataflows API
-      - name: Power Query SDK
-      - name: Fabric Power Query Programmatic API
+      - name: All Power BI Pro features
+      - name: Larger model sizes
+      - name: More frequent refreshes
+  - id: power-bi-embedded
+    name: Power BI Embedded
+    type: usage
+    price: variable
+    currency: USD
+    description: >-
+      Customer-facing reports, dashboards and analytics embedded in your own
+      application. Priced on capacity; contact sales or see the Azure pricing page.
+  - id: fabric-capacity
+    name: Microsoft Fabric Capacity (F SKUs)
+    type: capacity
+    price: variable
+    currency: USD
+    url: https://azure.microsoft.com/en-us/pricing/details/microsoft-fabric/
+    description: >-
+      The plan that actually governs the Power Query REST surface. A single pool
+      of Capacity Units serves every Fabric workload, including dataflow refresh
+      and query execution. Available pay-as-you-go or on a 1- or 3-year
+      reservation.
+    skus:
+      - {sku: F2, capacity_units: 2}
+      - {sku: F4, capacity_units: 4}
+      - {sku: F8, capacity_units: 8}
+      - {sku: F16, capacity_units: 16}
+      - {sku: F32, capacity_units: 32}
+      - {sku: F64, capacity_units: 64}
+      - {sku: F128, capacity_units: 128}
+      - {sku: F256, capacity_units: 256}
+      - {sku: F512, capacity_units: 512}
+      - {sku: F1024, capacity_units: 1024}
+      - {sku: F2048, capacity_units: 2048}
+      - {sku: F4096, capacity_units: 4096}
+      - {sku: F8192, capacity_units: 8192}
+    price_note: >-
+      Per-SKU dollar figures are rendered client-side and vary by region and
+      currency; the static page served to this pipeline on 2026-08-29 returned
+      "$-" for every cell. The SKU/CU ladder above is what the page states
+      unconditionally. No price is invented here.
+plan_count: 6
+notes:
+  - >-
+    Creating a dataflow through the REST API requires the workspace to be on a
+    supported Fabric capacity — the API reference states this as a limitation on
+    Items_CreateDataflow.
+  - >-
+    Rate limits are NOT a function of the plan. Fabric's Unified Quota is
+    enforced per identity at 200 calls/minute per API category regardless of SKU.
+    See rate-limits/power-query-rate-limits.yml.
+evidence:
+  - url: https://www.microsoft.com/en-us/power-platform/products/power-bi/pricing
+    status: 200
+  - url: https://azure.microsoft.com/en-us/pricing/details/microsoft-fabric/
+    status: 200
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

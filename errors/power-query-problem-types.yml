@@ -1,0 +1,122 @@
+generated: '2026-08-29'
+method: derived
+source: >-
+  openapi/power-query-fabric-dataflow-swagger.json (per-operation `default`
+  response "Common error codes" blocks) and
+  openapi/power-query-fabric-common-definitions.json (#/definitions/ErrorResponse)
+docs: https://learn.microsoft.com/en-us/rest/api/fabric/dataflow/items
+provider: Power Query
+providerId: power-query
+description: >-
+  Error catalog for the Power Query (Fabric Dataflow) REST API. Fabric does NOT
+  use RFC 9457 problem+json. It returns a proprietary JSON envelope keyed on a
+  string `errorCode` plus a `message`, with a `requestId` for support correlation,
+  a `moreDetails[]` array, an `isRetriable` boolean, and an optional
+  `relatedResource`. Every operation in the spec declares an explicit 429 with a
+  `Retry-After` header. The codes below were read verbatim from the spec's own
+  per-operation `default` response descriptions.
+format: proprietary
+media_type: application/json
+rfc9457: false
+envelope:
+  schema: '#/definitions/ErrorResponse (openapi/power-query-fabric-common-definitions.json)'
+  required:
+    - errorCode
+    - message
+  fields:
+    errorCode: >-
+      A specific identifier that provides information about an error condition,
+      allowing for standardized communication between the service and its users.
+    message: A human readable representation of the error.
+    requestId: UUID of the request associated with the error (readOnly).
+    moreDetails: List of additional ErrorResponseDetails (readOnly).
+    isRetriable: >-
+      When true, the request can be retried. Use the Retry-After response header
+      to determine the delay, if available.
+    relatedResource: '{ resourceId, resourceType } identifying the resource in error.'
+status_codes:
+  - status: 200
+    meaning: Request completed successfully.
+  - status: 201
+    meaning: Resource created (create dataflow, create schedule).
+  - status: 202
+    meaning: >-
+      Accepted — long-running operation. A `Location` header names the job
+      instance or operation to poll; `Retry-After` and `x-ms-operation-id` are
+      also returned.
+  - status: 429
+    meaning: >-
+      The service rate limit was exceeded. `Retry-After` (integer seconds)
+      indicates how long the client must wait.
+    header: Retry-After
+  - status: default
+    meaning: ErrorResponse envelope carrying one of the errorCode values below.
+problem_types:
+  - code: ItemNotFound
+    title: The requested item was not found.
+    remediation: Verify workspaceId and dataflowId; the item may have been soft-deleted.
+    operations: [Items_GetDataflow, Items_UpdateDataflow, Items_DeleteDataflow, Items_GetDataflowDefinition, Items_UpdateDataflowDefinition, Items_DiscoverDataflowParameters, BackgroundJobs_ScheduleExecute, BackgroundJobs_ScheduleApplyChanges, QueryExecution_ExecuteQuery]
+  - code: InsufficientPrivileges
+    title: The caller does not have sufficient permissions to access the item.
+    remediation: >-
+      Check the Entra delegated scope AND the Fabric workspace role — both are
+      enforced. See scopes/power-query-scopes.yml.
+  - code: InsufficientWorkspaceRole
+    title: User doesn't have sufficient workspace role.
+    remediation: Creating a dataflow requires the contributor workspace role.
+  - code: InvalidItemType
+    title: Item type is invalid.
+  - code: UnsupportedItemType
+    title: >-
+      This could be due to the soft deletion feature not supported by the
+      requested item type.
+  - code: OperationNotSupportedForItem
+    title: Operation not supported for requested item.
+  - code: ItemDisplayNameAlreadyInUse
+    title: Item display name is already used.
+    remediation: Dataflow display names must be unique within a workspace.
+  - code: InvalidRequest
+    title: Invalid update request.
+  - code: CorruptedPayload
+    title: The provided payload is corrupted.
+    remediation: >-
+      The definition parts are base64-encoded; confirm the payloadType and the
+      encoding of each part.
+  - code: DataflowExecuteQueryError
+    title: Query execution failed.
+    detail: >-
+      Possible reasons include: the specified query name is invalid or empty, the
+      custom mashup document is invalid, or the specified query name was not found
+      in the dataflow (or in the custom mashup document if provided).
+    operations: [QueryExecution_ExecuteQuery]
+  - code: DataflowNotParametricError
+    title: The requested dataflow is not parametric.
+    operations: [Items_DiscoverDataflowParameters]
+  - code: InvalidJobType
+    title: The requested job type is invalid.
+  - code: ScheduleExceedsLimit
+    title: The number of created schedules for the item exceeds the limit.
+    operations: [BackgroundJobs_ScheduleExecute, BackgroundJobs_ScheduleApplyChanges]
+  - code: TooManyRequestsForJobs
+    title: The caller requests too many on-demand job requests.
+    operations: [BackgroundJobs_RunOnDemandExecute, BackgroundJobs_RunOnDemandApplyChanges]
+    remediation: Back off and honor Retry-After; see rate-limits/power-query-rate-limits.yml.
+  - code: FeatureNotAvailable
+    title: This could be due to the soft deletion feature not being available.
+    operations: [Items_DeleteDataflow]
+  - code: TenantSwitchDisabled
+    title: >-
+      This could be due to the soft deletion feature being disabled by the tenant
+      admin.
+    operations: [Items_DeleteDataflow]
+  - code: InvalidTargetItemStateForSoftDeletion
+    title: The item is in invalid states for soft deletion.
+    operations: [Items_DeleteDataflow]
+  - code: InvalidParentItemStateForSoftDeletion
+    title: The item's parent item is not in Active state.
+    operations: [Items_DeleteDataflow]
+code_count: 18
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+    url: https://apievangelist.com

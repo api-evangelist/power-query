@@ -1,0 +1,74 @@
+generated: '2026-08-29'
+method: searched
+source: >-
+  https://learn.microsoft.com/en-us/rest/api/fabric/articles/identity-support and
+  https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration
+docs: https://learn.microsoft.com/en-us/rest/api/fabric/articles/scopes
+provider: Power Query
+providerId: power-query
+description: >-
+  The Power Query programmatic surface (the Fabric Dataflow REST API on
+  api.fabric.microsoft.com) authenticates exclusively with Microsoft Entra ID
+  OAuth 2.0 bearer tokens. There are no API keys and no basic auth. The published
+  Swagger carries no securityDefinitions block — the auth model is documented on
+  the Fabric REST articles rather than in the contract, which is recorded here as
+  a contract gap, not as an absence of authentication.
+primary_style: oauth2
+schemes:
+  - id: entra-oauth2
+    type: oauth2
+    name: Microsoft Entra ID (OAuth 2.0 / OpenID Connect)
+    in: header
+    header: Authorization
+    format: 'Bearer <access_token>'
+    flows:
+      - authorization_code
+      - client_credentials
+      - device_code
+    authorization_endpoint: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+    token_endpoint: https://login.microsoftonline.com/common/oauth2/v2.0/token
+    issuer: https://login.microsoftonline.com/{tenantid}/v2.0
+    discovery: https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration
+    discovery_status: 200
+    resource: https://api.fabric.microsoft.com
+    scopes_reference: scopes/power-query-scopes.yml
+identities_supported:
+  - identity: user
+    supported: true
+  - identity: service principal
+    supported: true
+  - identity: managed identity
+    supported: true
+    note: >-
+      Per the Fabric scopes article, direct access by service principals and
+      managed identities is governed by Fabric admin tenant switches and
+      workspace permissions rather than by delegated scopes.
+authorization_model:
+  - layer: Entra delegated scope
+    note: Applies only to delegated (on-behalf-of-user) access.
+  - layer: Fabric workspace role
+    note: >-
+      Every Dataflow operation additionally requires a workspace role. Creating a
+      dataflow requires the contributor workspace role; reading a definition
+      requires read permission; delete requires write permission.
+  - layer: Fabric tenant admin switches
+    note: >-
+      Tenant admins can disable service-principal API access and features such as
+      soft delete independently of any token the caller holds.
+contract_gaps:
+  - >-
+    openapi/power-query-fabric-dataflow-swagger.json declares `"security": []`
+    and no `securityDefinitions`. A client generated straight from the spec would
+    emit unauthenticated calls. Auth is documented only in prose on the operation
+    descriptions and the Fabric REST articles.
+evidence:
+  - url: https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration
+    status: 200
+  - url: https://learn.microsoft.com/en-us/rest/api/fabric/articles/scopes
+    status: 200
+  - url: https://learn.microsoft.com/en-us/rest/api/fabric/dataflow/items/create-dataflow
+    status: 200
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+    url: https://apievangelist.com

@@ -1,0 +1,87 @@
+generated: '2026-08-29'
+method: searched
+source: https://learn.microsoft.com/en-us/fabric/fundamentals/whats-new
+docs: https://learn.microsoft.com/en-us/power-bi/fundamentals/desktop-change-log
+provider: Power Query
+providerId: power-query
+description: >-
+  Power Query has no changelog of its own. Changes ship through two dated
+  Microsoft surfaces: the Microsoft Fabric "What's new" page (rolling, dated,
+  covers the Dataflow/Power Query item and its REST API) and the Power BI Desktop
+  change log (monthly, covers the Power Query editor and connector releases).
+  The Power BI blog carries the narrative announcements and is mirrored into
+  blogs/ in this repo.
+scheme: dated-rolling
+current_version: v1 (Fabric REST API path segment)
+sources:
+  - name: Microsoft Fabric — What's new
+    url: https://learn.microsoft.com/en-us/fabric/fundamentals/whats-new
+    status: 200
+    cadence: rolling, dated entries
+  - name: Power BI Desktop change log
+    url: https://learn.microsoft.com/en-us/power-bi/fundamentals/desktop-change-log
+    status: 200
+    cadence: monthly
+  - name: Power BI blog
+    url: https://powerbi.microsoft.com/blog/
+    status: 403
+    status_note: Cloudflare bot challenge for non-browser clients; the feed is mirrored in blogs/.
+  - name: Fabric CLI release notes
+    url: https://microsoft.github.io/fabric-cli/release-notes/
+    cadence: per release
+entries:
+  - date: '2026-08-25'
+    version: '@microsoft/powerquery-parser 2.0.0'
+    breaking: true
+    highlights:
+      - >-
+        Major version bump of the M language parser. Read from the npm registry
+        metadata, not from a prose changelog — no release notes page was located.
+  - date: '2026-08-19'
+    version: ms-fabric-cli 1.7.0
+    breaking: false
+    highlights:
+      - Latest `fab` CLI release on PyPI.
+  - date: '2026-06-30'
+    breaking: false
+    highlights:
+      - Power BI Desktop bridge (preview).
+    source: blogs/2026-06-30-power-bi-desktop-bridge-preview.md
+  - date: '2026-05-20'
+    breaking: false
+    highlights:
+      - New Power Query experience in Power BI Desktop (preview).
+    source: blogs/2026-05-20-new-power-query-experience-in-power-bi-desktop-preview.md
+  - date: '2026-05-07'
+    breaking: false
+    highlights:
+      - Execute DAX queries REST API (preview).
+    source: blogs/2026-05-07-execute-dax-queries-rest-api-preview.md
+  - date: '2026-04-02'
+    breaking: true
+    highlights:
+      - >-
+        Dataflows Gen1 wind-down signalled; Gen2 named as the forward path for
+        Power Query dataflows.
+    source: blogs/2026-04-02-dataflows-thank-you-for-eight-years-of-gen1and-why-gen2-is-t.md
+  - date: '2026-03-31'
+    version: 'PowerQuery.vscode-powerquery 1.0.0'
+    breaking: false
+    highlights:
+      - >-
+        Power Query / M VS Code extension reached 1.0.0, alongside
+        @microsoft/powerquery-language-services 1.0.0.
+  - date: '2026-02-10'
+    breaking: true
+    highlights:
+      - Deprecation of the old Excel and CSV import experience in Power Query.
+    source: blogs/2026-02-10-deprecation-of-old-excel-and-csv-import-experience-in-power.md
+window: rolling 12 months (recent entries only)
+note: >-
+  Entries are assembled from dated Microsoft sources and registry release
+  metadata this pipeline verified on 2026-08-29. This is a digest, not a
+  reproduction of Microsoft's changelog.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+    url: https://apievangelist.com

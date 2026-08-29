@@ -1,0 +1,120 @@
+generated: '2026-08-29'
+method: searched
+source: https://learn.microsoft.com/en-us/rest/api/fabric/articles/scopes
+docs: https://learn.microsoft.com/en-us/rest/api/fabric/articles/scopes
+provider: Power Query
+providerId: power-query
+description: >-
+  Microsoft Entra ID delegated scopes governing the Power Query (Fabric Dataflow)
+  REST surface. Fabric draws a generic/specific distinction: generic `Item.*`
+  scopes grant a token over any item type, specific `Dataflow.*` scopes narrow it
+  to dataflows. Scopes apply ONLY to delegated, on-behalf-of-user access; service
+  principals and managed identities are governed by Fabric admin controls and
+  workspace permissions instead. The scopes are not declared in the published
+  Swagger — they are carried in each operation's `Required Delegated Scopes`
+  prose section, which is where the list below was read from.
+flow: authorization_code
+authorization_endpoint: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+token_endpoint: https://login.microsoftonline.com/common/oauth2/v2.0/token
+oidc_scopes:
+  - openid
+  - profile
+  - email
+  - offline_access
+scopes:
+  - name: Dataflow.Read.All
+    kind: specific
+    description: Read all dataflows the signed-in user has access to.
+    verified_on:
+      - Items_GetDataflow
+      - Items_DiscoverDataflowParameters
+  - name: Dataflow.ReadWrite.All
+    kind: specific
+    description: Read and write all dataflows the signed-in user has access to.
+    verified_on:
+      - Items_CreateDataflow
+      - Items_UpdateDataflow
+      - Items_DeleteDataflow
+      - Items_GetDataflowDefinition
+      - Items_UpdateDataflowDefinition
+      - BackgroundJobs_ScheduleExecute
+      - BackgroundJobs_ScheduleApplyChanges
+  - name: Dataflow.Execute.All
+    kind: specific
+    description: Execute dataflows the signed-in user has access to.
+    verified_on:
+      - QueryExecution_ExecuteQuery
+      - BackgroundJobs_ScheduleExecute
+      - BackgroundJobs_ScheduleApplyChanges
+    note: >-
+      The two schedule operations require Dataflow.Execute.All AND
+      Dataflow.ReadWrite.All together, not either/or.
+  - name: Dataflow.Reshare.All
+    kind: specific
+    description: >-
+      Reshare dataflows the signed-in user has access to. Documented by the
+      Fabric scopes article as part of the <itemType>.Reshare.All pattern; no
+      Dataflow operation in the published spec was observed requiring it.
+    verified_on: []
+  - name: Workspace.Read.All
+    kind: other
+    description: Read the workspaces the signed-in user has access to.
+    verified_on:
+      - Items_ListDataflows
+  - name: Workspace.ReadWrite.All
+    kind: other
+    description: Read and write the workspaces the signed-in user has access to.
+    verified_on:
+      - Items_ListDataflows
+  - name: Item.Read.All
+    kind: generic
+    description: Read all Fabric items of any type the signed-in user has access to.
+    verified_on:
+      - Items_GetDataflow
+      - Items_DiscoverDataflowParameters
+  - name: Item.ReadWrite.All
+    kind: generic
+    description: Read and write all Fabric items of any type.
+    verified_on:
+      - Items_CreateDataflow
+      - Items_UpdateDataflow
+      - Items_DeleteDataflow
+      - Items_GetDataflowDefinition
+      - Items_UpdateDataflowDefinition
+      - Items_GetDataflow
+  - name: Item.Execute.All
+    kind: generic
+    description: Execute all Fabric items.
+    verified_on:
+      - QueryExecution_ExecuteQuery
+  - name: Item.Reshare.All
+    kind: generic
+    description: Reshare all Fabric items.
+    verified_on: []
+unverified_operations:
+  - operation: BackgroundJobs_RunOnDemandExecute
+    reason: >-
+      No reference page was located under
+      /rest/api/fabric/dataflow/background-jobs/ for this operation on 2026-08-29,
+      so its Required Delegated Scopes block could not be read. Not inferred.
+  - operation: BackgroundJobs_RunOnDemandApplyChanges
+    reason: Same as above.
+notes:
+  - >-
+    Every operation additionally requires a Fabric workspace role. A token
+    carrying Dataflow.ReadWrite.All does not by itself permit creating a dataflow
+    — the caller must also hold the contributor workspace role.
+  - >-
+    The full delegated-scope catalog is enumerated in the Azure portal under
+    App registrations > Add permissions > Power BI Service.
+evidence:
+  - url: https://learn.microsoft.com/en-us/rest/api/fabric/articles/scopes
+    status: 200
+  - url: https://learn.microsoft.com/en-us/rest/api/fabric/dataflow/items/create-dataflow
+    status: 200
+  - url: https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration
+    status: 200
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+    url: https://apievangelist.com

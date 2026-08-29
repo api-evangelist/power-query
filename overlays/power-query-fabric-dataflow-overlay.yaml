@@ -1,0 +1,109 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements — Power Query (Fabric Dataflow) REST API
+  version: 1.0.0
+x-provenance:
+  generated: '2026-08-29'
+  method: generated
+  source: openapi/power-query-fabric-dataflow-swagger.json
+  extends: openapi/power-query-fabric-dataflow-swagger.json
+  note: >-
+    Non-destructive overlay of the enhancements this pipeline derived. It is NOT
+    applied to the original spec, which is stored verbatim as Microsoft publishes
+    it at github.com/microsoft/fabric-rest-api-specs. The target document is
+    Swagger 2.0, so the actions below use Swagger 2.0 field names.
+actions:
+  - target: $.info
+    description: >-
+      Name the publisher and the contract's real provenance — info carries only
+      title and version upstream.
+    update:
+      description: >-
+        REST API for the Microsoft Fabric Dataflow item — the productized Power
+        Query mashup engine. Create, read, update and delete dataflows, publish
+        and retrieve their Power Query definitions, discover their parameters,
+        schedule execute and applyChanges jobs, and execute a query against a
+        dataflow on demand.
+      contact:
+        name: Microsoft Fabric
+        url: https://learn.microsoft.com/en-us/rest/api/fabric/dataflow/items
+      license:
+        name: MIT
+        url: https://github.com/microsoft/fabric-rest-api-specs/blob/main/LICENSE.txt
+      x-origin:
+        - url: https://raw.githubusercontent.com/microsoft/fabric-rest-api-specs/main/dataflow/swagger.json
+          format: swagger
+          version: '2.0'
+          fetched: '2026-08-29'
+  - target: $
+    description: >-
+      Declare the security scheme the API actually enforces. Upstream ships
+      `security: []` and no securityDefinitions, so a generated client emits
+      unauthenticated calls.
+    update:
+      securityDefinitions:
+        entra_oauth2:
+          type: oauth2
+          flow: accessCode
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          description: >-
+            Microsoft Entra ID. Delegated scopes only; service principals and
+            managed identities are governed by Fabric admin controls and
+            workspace roles. Every call ALSO requires a Fabric workspace role.
+          scopes:
+            Dataflow.Read.All: Read dataflows the user has access to.
+            Dataflow.ReadWrite.All: Read and write dataflows the user has access to.
+            Dataflow.Execute.All: Execute dataflows the user has access to.
+            Dataflow.Reshare.All: Reshare dataflows the user has access to.
+            Item.Read.All: Read all Fabric items.
+            Item.ReadWrite.All: Read and write all Fabric items.
+            Item.Execute.All: Execute all Fabric items.
+            Workspace.Read.All: Read workspaces the user has access to.
+            Workspace.ReadWrite.All: Read and write workspaces the user has access to.
+      x-rate-limits:
+        model: unified-quota-per-identity
+        window_seconds: 60
+        buckets:
+          - name: Platform APIs
+            limit_per_minute: 200
+          - name: Job Scheduler APIs
+            limit_per_minute: 200
+          - name: Long-Running Operations APIs
+            limit_per_minute: 200
+        budget_headers_published: false
+        signal: 'Retry-After (on 429 only)'
+        source: https://learn.microsoft.com/en-us/rest/api/fabric/articles/throttling
+      x-error-catalog: errors/power-query-problem-types.yml
+      x-conventions: conventions/power-query-conventions.yml
+  - target: $
+    description: >-
+      Declare the tag set. Upstream ships an empty `tags: []` even though every
+      operation is tagged.
+    update:
+      tags:
+        - name: Items
+          description: Dataflow item lifecycle — create, read, update, delete, definition, parameters.
+        - name: BackgroundJobs
+          description: Scheduled and on-demand execute / applyChanges jobs.
+        - name: QueryExecution
+          description: Ad-hoc execution of a Power Query against a dataflow.
+  - target: $.paths['/workspaces/{workspaceId}/dataflows/{dataflowId}'].delete
+    description: >-
+      Flag the one irreversible path on this API so an agent reading the contract
+      alone can see it.
+    update:
+      x-agentic-access:
+        action_class: destructive
+        consequence: >-
+          hardDelete=true permanently deletes the dataflow and it cannot be
+          recovered. hardDelete omitted or false performs a soft delete, which is
+          recoverable — but Microsoft publishes no retention window and this API
+          exposes no restore operation.
+        reversibility: partial
+        escalation: require-human-confirmation-when-hardDelete-true
+  - target: $.paths['/workspaces/{workspaceId}/dataflows/{dataflowId}/executeQuery'].post
+    description: Record the published execution ceiling.
+    update:
+      x-timeout-seconds: 90
+      x-timeout-source: https://learn.microsoft.com/en-us/rest/api/fabric/dataflow/query-execution/execute-query

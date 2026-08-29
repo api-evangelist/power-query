@@ -1,0 +1,85 @@
+generated: '2026-08-29'
+method: searched
+source: https://learn.microsoft.com/en-us/compliance/regulatory/offering-home
+provider: Power Query
+providerId: power-query
+description: >-
+  Power Query has no product-specific trust portal. It inherits the Microsoft
+  corporate trust program: the Microsoft Trust Center for policy, the Service
+  Trust Portal for audit reports, and the Microsoft compliance offerings index
+  for the certification list. The offerings index explicitly scopes Power
+  Platform — the family Power Query dataflows ship in — alongside Azure,
+  Dynamics 365 and Microsoft 365.
+trust_center:
+  url: https://www.microsoft.com/en-us/trust-center
+  status: 403
+  note: >-
+    Bot-challenged for non-browser clients; the page demonstrably exists and is
+    linked from the Power BI security documentation.
+  report_portal: https://servicetrust.microsoft.com/
+  report_portal_status: 200
+  report_access: sign-in required for audit reports
+  compliance_index: https://learn.microsoft.com/en-us/compliance/regulatory/offering-home
+  compliance_index_status: 200
+scope_note: >-
+  These are Microsoft-wide / Power Platform-wide attestations. No attestation
+  scoped to "Power Query" as a discrete service was found.
+certifications:
+  - name: ISO/IEC 27001
+    category: global
+  - name: ISO/IEC 27017
+    category: global
+  - name: ISO/IEC 27018
+    category: global
+  - name: ISO/IEC 27701
+    category: global
+  - name: ISO/IEC 42001
+    category: global
+    note: AI management system.
+  - name: ISO 22301
+    category: global
+  - name: ISO 9001
+    category: global
+  - name: SOC 1
+    category: global
+  - name: SOC 2
+    category: global
+  - name: SOC 3
+    category: global
+  - name: CSA STAR (attestation, certification, self-assessment)
+    category: global
+  - name: FedRAMP
+    category: us-government
+  - name: FIPS 140-2
+    category: us-government
+  - name: DoD IL2 / IL5
+    category: us-government
+  - name: NIST 800-171
+    category: us-government
+  - name: HIPAA / HITECH
+    category: industry
+  - name: HITRUST
+    category: industry
+  - name: PCI DSS
+    category: industry
+  - name: PCI 3DS
+    category: industry
+  - name: GxP / FDA CFR Title 21 Part 11
+    category: industry
+  - name: GDPR
+    category: regional
+  - name: DORA (EU)
+    category: regional
+  - name: C5 (Germany)
+    category: regional
+  - name: IRAP (Australia)
+    category: regional
+  - name: ISMAP (Japan)
+    category: regional
+data_protection:
+  privacy_statement: https://www.microsoft.com/en-us/privacy/privacystatement
+  services_agreement: https://www.microsoft.com/en-us/servicesagreement/
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+    url: https://apievangelist.com

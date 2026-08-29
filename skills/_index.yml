@@ -1,0 +1,45 @@
+generated: '2026-08-29'
+method: generated
+source: openapi/power-query-fabric-dataflow-swagger.json
+provider: Power Query
+providerId: power-query
+description: >-
+  Packaged Agent Skills for the Power Query (Microsoft Fabric Dataflow) REST API.
+  Every operationId referenced in these skills was read from the published Swagger
+  in openapi/; none is invented. Each skill carries the conventions, scope,
+  error-handling and reversibility rules that operation actually requires.
+skills:
+  - name: power-query-run-a-dataflow
+    file: power-query-run-a-dataflow.md
+    description: >-
+      Trigger an on-demand dataflow run with optional parameter overrides and poll
+      the long-running operation.
+    operations:
+      - Items_ListDataflows
+      - Items_DiscoverDataflowParameters
+      - BackgroundJobs_RunOnDemandExecute
+      - BackgroundJobs_RunOnDemandApplyChanges
+  - name: power-query-execute-a-query
+    file: power-query-execute-a-query.md
+    description: >-
+      Execute a Power Query M query against a dataflow and read the result within
+      the published 90-second ceiling.
+    operations:
+      - QueryExecution_ExecuteQuery
+      - Items_GetDataflowDefinition
+  - name: power-query-publish-a-definition
+    file: power-query-publish-a-definition.md
+    description: >-
+      Create or overwrite a dataflow definition safely, including the rollback copy
+      the API does not keep, and the delete rules.
+    operations:
+      - Items_CreateDataflow
+      - Items_GetDataflowDefinition
+      - Items_UpdateDataflowDefinition
+      - Items_UpdateDataflow
+      - Items_DeleteDataflow
+skill_count: 3
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+    url: https://apievangelist.com

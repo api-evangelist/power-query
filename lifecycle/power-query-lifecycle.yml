@@ -1,0 +1,86 @@
+generated: '2026-08-29'
+method: searched
+source: >-
+  https://learn.microsoft.com/en-us/fabric/fundamentals/whats-new,
+  https://learn.microsoft.com/en-us/power-bi/fundamentals/desktop-change-log,
+  https://support.fabric.microsoft.com/
+provider: Power Query
+providerId: power-query
+description: >-
+  Versioning, deprecation, status and support posture for Power Query and the
+  Fabric Dataflow REST API that exposes it programmatically.
+versioning:
+  style: uri-path
+  current: v1
+  base: https://api.fabric.microsoft.com/v1
+  policy_url: https://learn.microsoft.com/en-us/rest/api/fabric/articles/
+  note: >-
+    No formal API version-support/sunset policy document was located for the
+    Fabric REST APIs. Preview status is marked per-operation in the reference
+    docs rather than by a version segment.
+deprecation:
+  policy: true
+  policy_url: https://learn.microsoft.com/en-us/power-bi/fundamentals/desktop-change-log
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  note: >-
+    Microsoft announces Power Query / Power BI deprecations through the Power BI
+    blog and the Power BI Desktop change log, with named removal dates, rather
+    than through RFC 8594 Deprecation/Sunset response headers. No operation in
+    the published Dataflow Swagger carries `deprecated: true`.
+  observed_announcements:
+    - item: Dataflows Gen1
+      note: >-
+        Microsoft published "Dataflows: Thank you for eight years of Gen1 - and
+        why Gen2 is the future" (2026-04-02), signalling the Gen1 to Gen2
+        migration path. Captured in blogs/2026-04-02-dataflows-thank-you-for-eight-years-of-gen1and-why-gen2-is-t.md
+    - item: Old Excel and CSV import experience
+      note: >-
+        Deprecation announced 2026-02-10. Captured in
+        blogs/2026-02-10-deprecation-of-old-excel-and-csv-import-experience-in-power.md
+    - item: Embedded ODBC drivers
+      note: >-
+        Migration from embedded ODBC drivers to ADBC in Power BI announced
+        2026-06-18. Captured in blogs/.
+deprecated_operations: []
+deprecated_operations_note: >-
+  Derived from openapi/power-query-fabric-dataflow-swagger.json — no operation is
+  flagged deprecated.
+status_page:
+  url: https://support.fabric.microsoft.com/
+  status: 200
+  name: Microsoft Fabric Support and Status
+  machine_readable: false
+  note: >-
+    Fabric publishes service health and known issues here. No status JSON/RSS
+    feed of the statuspage.io kind was found; incident history is rendered as
+    HTML.
+  known_issues: https://learn.microsoft.com/en-us/fabric/known-issues/
+sla:
+  published: true
+  url: https://www.microsoft.com/licensing/docs/view/Service-Level-Agreements-SLA-for-Online-Services
+  note: >-
+    Covered by the Microsoft Online Services SLA rather than a Power Query-specific
+    SLA document. Power BI free / Fabric trial capacity carry no SLA.
+support:
+  channels:
+    - name: Fabric Support
+      url: https://support.fabric.microsoft.com/
+    - name: Power BI Support
+      url: https://powerbi.microsoft.com/en-us/support/
+    - name: Fabric Community
+      url: https://community.fabric.microsoft.com/
+      status: 403
+      status_note: Cloudflare bot challenge for non-browser clients; the community demonstrably exists.
+    - name: Stack Overflow (powerquery)
+      url: https://stackoverflow.com/questions/tagged/powerquery
+    - name: GitHub Issues (DataConnectors)
+      url: https://github.com/Microsoft/DataConnectors/issues
+release_cadence:
+  power_bi_desktop: monthly feature summary
+  fabric: rolling, announced via /fabric/fundamentals/whats-new
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+    url: https://apievangelist.com

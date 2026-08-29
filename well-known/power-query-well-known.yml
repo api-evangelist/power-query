@@ -1,0 +1,99 @@
+generated: '2026-08-29'
+method: searched
+source: live GET probes of /.well-known/* on every apis.yml and OpenAPI servers[] host, 2026-08-29
+provider: Power Query
+providerId: power-query
+description: >-
+  Well-known discovery probe across the Power Query / Microsoft Fabric host set.
+  The product hosts themselves (api.fabric.microsoft.com / api.powerbi.com,
+  learn.microsoft.com) serve nothing at /.well-known/. Microsoft centralises the
+  two documents that do exist: the RFC 9116 security.txt on msrc.microsoft.com
+  (which declares www.microsoft.com/.well-known/security.txt as its Canonical URI)
+  and OIDC discovery on login.microsoftonline.com, which is the authorization
+  server every Fabric / Power BI REST call authenticates against.
+hit_count: 2
+hosts:
+  - host: https://msrc.microsoft.com
+    note: >-
+      Microsoft Security Response Center. Company-wide security.txt; its own
+      Canonical field names https://www.microsoft.com/.well-known/security.txt,
+      which is fronted by a bot challenge (403) for non-browser clients.
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: power-query-security.txt
+  - host: https://login.microsoftonline.com
+    note: >-
+      Microsoft Entra ID. The authorization server for api.fabric.microsoft.com
+      and api.powerbi.com; feeds authentication/ and scopes/.
+    documents:
+      - path: /common/v2.0/.well-known/openid-configuration
+        status: 200
+        file: power-query-openid-configuration.json
+      - path: /common/.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/security.txt
+        status: 404
+  - host: https://api.powerbi.com
+    note: >-
+      api.fabric.microsoft.com is a DNS alias for api.powerbi.com. Every probed
+      path returned a genuine 404 with an empty body — not a catch-all.
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://learn.microsoft.com
+    note: >-
+      Docs host. Every path returned the standard 17,593-byte Learn 404 page —
+      a real 404, not a soft-200.
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /llms.txt
+        status: 404
+  - host: https://powerbi.microsoft.com
+    note: >-
+      Marketing host. Every /.well-known/* path returned a Cloudflare interstitial
+      (403 "Just a moment...") even with a browser User-Agent — the probe could not
+      be completed, so nothing is claimed for this host either way.
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+      - path: /.well-known/api-catalog
+        status: 403
+      - path: /.well-known/agent-card.json
+        status: 403
+  - host: https://www.microsoft.com
+    note: Same bot challenge (403) as powerbi.microsoft.com; probe not completable.
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+      - path: /.well-known/agent-card.json
+        status: 403
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+    url: https://apievangelist.com

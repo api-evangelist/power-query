@@ -1,0 +1,135 @@
+generated: '2026-08-29'
+method: derived
+source: >-
+  openapi/power-query-fabric-dataflow-definitions.json and
+  openapi/power-query-fabric-common-definitions.json
+provider: Power Query
+providerId: power-query
+description: >-
+  Entity/relationship graph for the Power Query (Fabric Dataflow) REST API,
+  derived from the $ref graph in the published Swagger definitions. A Dataflow is
+  a Fabric Item: it inherits id, displayName, description, type, workspaceId,
+  folderId, tags, defaultIdentity and sensitivityLabel from the shared Item
+  schema, and adds a definition (the Power Query mashup and its parts),
+  parameters, schedules and job instances.
+id_convention:
+  format: uuid
+  note: >-
+    Every identifier on this surface is a bare UUID — workspaceId, dataflowId,
+    folderId, job instance id. There are no typed/prefixed ids, so an agent
+    cannot tell a workspace id from a dataflow id by inspection.
+entities:
+  - name: Workspace
+    id: workspaceId
+    description: The Fabric workspace that contains dataflows. Root of every path.
+    relationships:
+      - has_many: Dataflow
+        via: workspaceId
+      - has_many: Folder
+        via: folderId
+  - name: Dataflow
+    schema: Dataflow
+    extends: Item
+    id: id (uuid)
+    description: >-
+      A Power Query dataflow item. The Gen2 dataflow is the productized Power
+      Query mashup engine.
+    fields:
+      - id
+      - displayName
+      - description
+      - type
+      - workspaceId
+      - folderId
+      - tags
+      - defaultIdentity
+      - sensitivityLabel
+    relationships:
+      - belongs_to: Workspace
+        via: workspaceId
+      - belongs_to: Folder
+        via: folderId
+      - has_one: DataflowDefinition
+        via: getDefinition / updateDefinition
+      - has_many: DataflowParameter
+        via: parameters
+      - has_many: DataflowSchedule
+        via: jobs/{jobType}/schedules
+      - has_many: ItemJobInstance
+        via: jobs/{jobType}/instances
+      - has_many: ItemTag
+        via: tags
+      - has_one: SensitivityLabel
+        via: sensitivityLabel
+      - has_one: Principal
+        via: defaultIdentity
+  - name: DataflowDefinition
+    schema: DataflowDefinition
+    description: >-
+      The dataflow's public definition — the Power Query mashup document and its
+      supporting files.
+    relationships:
+      - has_many: DataflowDefinitionPart
+        via: parts
+  - name: DataflowDefinitionPart
+    schema: DataflowDefinitionPart
+    description: One file of the definition (path + base64 payload + payloadType).
+  - name: DataflowParameter
+    schema: DataflowParameter
+    description: >-
+      A named, typed parameter declared in the mashup. Polymorphic — the spec
+      declares eight concrete subtypes.
+    subtypes:
+      - DataflowStringParameter
+      - DataflowBooleanParameter
+      - DataflowIntegerParameter
+      - DataflowNumberParameter
+      - DataflowDateTimeParameter
+      - DataflowDateTimeZoneParameter
+      - DataflowDateParameter
+      - DataflowTimeParameter
+      - DataflowDurationParameter
+  - name: DataflowSchedule
+    schema: DataflowSchedule
+    description: >-
+      A recurring execute or applyChanges schedule bound to one dataflow. Two
+      distinct job types share the shape.
+    relationships:
+      - belongs_to: Dataflow
+        via: dataflowId
+  - name: ItemJobParameter
+    schema: ItemJobParameter
+    description: >-
+      A parameter value supplied at run time on an on-demand execute request
+      (parameterName, type, value).
+  - name: DataflowExecutionPayload
+    schema: DataflowExecutionPayload
+    description: >-
+      The executionData body of an on-demand execute request — carries
+      executeOption and the parameter list.
+  - name: ExecuteQueryRequest
+    schema: ExecuteQueryRequest
+    description: >-
+      Ad-hoc query execution against a dataflow, optionally against a supplied
+      custom mashup document rather than the stored definition.
+  - name: ErrorResponse
+    schema: ErrorResponse
+    description: The shared Fabric error envelope. See errors/power-query-problem-types.yml.
+    relationships:
+      - has_many: ErrorResponseDetails
+        via: moreDetails
+      - has_one: ErrorRelatedResource
+        via: relatedResource
+  - name: PaginatedResponse
+    schema: PaginatedResponse
+    description: >-
+      Mixed into Dataflows and DataflowParameters — continuationToken +
+      continuationUri.
+counts:
+  dataflow_definitions: 26
+  common_definitions: 47
+  operations: 13
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+    url: https://apievangelist.com

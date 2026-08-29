@@ -1,0 +1,107 @@
+generated: '2026-08-29'
+method: searched
+source: >-
+  registry.npmjs.org, pypi.org, marketplace.visualstudio.com and the Microsoft
+  GitHub organization, probed 2026-08-29
+provider: Power Query
+providerId: power-query
+description: >-
+  First-party Microsoft libraries and tooling for the Power Query / M formula
+  language and for the Fabric REST surface that executes Power Query dataflows.
+  There is no conventional REST "client SDK" for Power Query: Microsoft ships the
+  language toolchain (parser, formatter, language services) as npm packages, the
+  connector SDK as a VS Code extension, and the Fabric API client surface as the
+  `fab` CLI on PyPI.
+packages:
+  - language: typescript
+    registry: npm
+    name: '@microsoft/powerquery-parser'
+    url: https://www.npmjs.com/package/@microsoft/powerquery-parser
+    install: npm install @microsoft/powerquery-parser
+    official: true
+    version: 2.0.0
+    published: '2026-08-25'
+    repository: https://github.com/microsoft/powerquery-parser
+    license: MIT
+    note: Lexer/parser for the Power Query / M formula language, written in TypeScript.
+  - language: typescript
+    registry: npm
+    name: '@microsoft/powerquery-formatter'
+    url: https://www.npmjs.com/package/@microsoft/powerquery-formatter
+    install: npm install @microsoft/powerquery-formatter
+    official: true
+    version: 1.0.0
+    published: '2026-03-30'
+    repository: https://github.com/microsoft/powerquery-formatter
+    license: MIT
+    note: Code formatter for M, built on @microsoft/powerquery-parser.
+  - language: typescript
+    registry: npm
+    name: '@microsoft/powerquery-language-services'
+    url: https://www.npmjs.com/package/@microsoft/powerquery-language-services
+    install: npm install @microsoft/powerquery-language-services
+    official: true
+    version: 1.0.0
+    published: '2026-03-31'
+    repository: https://github.com/microsoft/powerquery-language-services
+    license: MIT
+    note: IntelliSense, hover, diagnostics and other LSP services for M.
+  - language: python
+    registry: pypi
+    name: ms-fabric-cli
+    url: https://pypi.org/project/ms-fabric-cli/
+    install: pip install ms-fabric-cli
+    official: true
+    version: 1.7.0
+    published: '2026-08-19'
+    repository: https://github.com/microsoft/fabric-cli
+    note: >-
+      The `fab` CLI. Provides command-line and scriptable access to the Microsoft
+      Fabric REST APIs, including the Dataflow (Power Query) item surface. See
+      cli/power-query-cli.yml.
+  - language: typescript
+    registry: vscode-marketplace
+    name: PowerQuery.vscode-powerquery
+    url: https://marketplace.visualstudio.com/items?itemName=PowerQuery.vscode-powerquery
+    install: code --install-extension PowerQuery.vscode-powerquery
+    official: true
+    version: 1.0.0
+    published: '2026-03-31'
+    repository: https://github.com/microsoft/vscode-powerquery
+    license: MIT
+    note: >-
+      Power Query / M language extension for VS Code. Version and date read from
+      the Visual Studio Marketplace extensionquery API (installs ~165,093).
+  - language: typescript
+    registry: vscode-marketplace
+    name: PowerQuery.vscode-powerquery-sdk
+    url: https://marketplace.visualstudio.com/items?itemName=PowerQuery.vscode-powerquery-sdk
+    install: code --install-extension PowerQuery.vscode-powerquery-sdk
+    official: true
+    version: 0.7.1
+    published: '2026-02-18'
+    repository: https://github.com/microsoft/vscode-powerquery-sdk
+    license: MIT
+    note: >-
+      The Power Query Connector Development SDK (aka.ms/powerquerysdk resolves
+      here). Scaffolds, tests and packages .mez custom connectors. Installs ~53,754.
+sources:
+  - registry: github
+    name: microsoft/DataConnectors
+    url: https://github.com/microsoft/DataConnectors
+    version: null
+    published: '2026-06-08'
+    official: true
+    note: >-
+      Data Connector SDK samples for Power Query and Power BI. Distributed as a
+      git repository only — no package registry entry exists, so `version` is
+      null; `published` is the last push observed via the GitHub API 2026-08-29.
+notes:
+  - >-
+    No first-party Power Query REST client library was found on npm, PyPI, NuGet,
+    Maven Central, RubyGems, Packagist, crates.io or pkg.go.dev. Programmatic
+    access runs through the Fabric REST API directly or through the `fab` CLI.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+    url: https://apievangelist.com

@@ -1,0 +1,62 @@
+generated: '2026-08-29'
+method: derived
+source: >-
+  mcp/power-query-mcp-tools.json (live tools/list) and
+  openapi/power-query-fabric-dataflow-swagger.json
+provider: Power Query
+providerId: power-query
+description: >-
+  Crosswalk between the MCP tools an agent can reach for Power Query and the REST
+  operations Microsoft publishes for the Power Query (Fabric Dataflow) surface.
+  The finding is a total divergence: the MCP surface is documentation retrieval
+  and the REST surface is dataflow control. Not one MCP tool binds to a REST
+  operation, and not one REST operation is exposed as a tool. An agent that can
+  talk MCP to Microsoft today can read about Power Query; it cannot run a query.
+surfaces:
+  openapi:
+    file: openapi/power-query-fabric-dataflow-swagger.json
+    host: https://api.fabric.microsoft.com/v1
+    operations: 13
+    gated: true
+    gate: Microsoft Entra ID bearer token, delegated Dataflow.* / Item.* scopes
+  graphql: null
+  mcp:
+    url: https://learn.microsoft.com/api/mcp
+    tools: 3
+    gated: false
+crosswalk: []
+mcp_only:
+  - tool: microsoft_docs_search
+    reason: >-
+      Documentation retrieval over Microsoft Learn. No public REST operation on
+      any Power Query or Fabric host backs it.
+  - tool: microsoft_code_sample_search
+    reason: Documentation/code-sample retrieval; no backing REST operation.
+  - tool: microsoft_docs_fetch
+    reason: Documentation page fetch; no backing REST operation.
+rest_only:
+  - operation: Items_ListDataflows
+    note: No MCP tool exposes it.
+  - operation: Items_CreateDataflow
+  - operation: Items_GetDataflow
+  - operation: Items_UpdateDataflow
+  - operation: Items_DeleteDataflow
+  - operation: Items_GetDataflowDefinition
+  - operation: Items_UpdateDataflowDefinition
+  - operation: Items_DiscoverDataflowParameters
+  - operation: BackgroundJobs_ScheduleExecute
+  - operation: BackgroundJobs_ScheduleApplyChanges
+  - operation: BackgroundJobs_RunOnDemandExecute
+  - operation: BackgroundJobs_RunOnDemandApplyChanges
+  - operation: QueryExecution_ExecuteQuery
+coverage:
+  mcp_tools: 3
+  rest_operations: 13
+  bound: 0
+  mcp_only: 3
+  rest_only: 13
+  binding_rate: 0.0
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+    url: https://apievangelist.com

@@ -1,0 +1,80 @@
+generated: '2026-08-29'
+method: searched
+source: https://microsoft.github.io/fabric-cli/
+docs: https://microsoft.github.io/fabric-cli/
+provider: Power Query
+providerId: power-query
+description: >-
+  Microsoft ships two first-party command-line surfaces relevant to Power Query.
+  The Fabric CLI (`fab`) is the operational one — it drives the Fabric REST APIs,
+  including the Dataflow (Power Query) item surface, from a terminal or CI job,
+  and exposes a generic `api` verb that calls any Fabric REST endpoint. The Power
+  Query SDK also ships a build/test toolchain for custom connectors, but it is
+  delivered as a VS Code extension rather than a standalone binary.
+clis:
+  - name: fab
+    display_name: Microsoft Fabric CLI
+    official: true
+    docs: https://microsoft.github.io/fabric-cli/
+    repository: https://github.com/microsoft/fabric-cli
+    release_notes: https://microsoft.github.io/fabric-cli/release-notes/
+    package: ms-fabric-cli
+    registry: pypi
+    version: 1.7.0
+    published: '2026-08-19'
+    install:
+      - pip install ms-fabric-cli
+    auth:
+      - name: interactive sign-in
+        command: fab auth login
+      - name: service principal
+        note: Configured through `fab auth` and environment variables.
+    paradigm: >-
+      Filesystem metaphor — workspaces and items are browsed with cd, ls, pwd,
+      cp, mv, rm, mkdir, ln as if they were directories and files.
+    command_groups:
+      - group: navigation
+        commands: [cd, ls (dir), pwd, exists, find, open]
+      - group: item lifecycle
+        commands: [mkdir (create), cp (copy), mv (move), rm (del), import, export, bulk-export, desc, get, set, table]
+      - group: jobs
+        commands: [jobs, start, stop, deploy]
+      - group: access and governance
+        commands: [acl, label, assign, unassign]
+      - group: platform
+        commands: [api, auth, config]
+    key_flows:
+      - flow: Call any Fabric REST endpoint
+        command: fab api <endpoint>
+        note: >-
+          The escape hatch that reaches the Dataflow operations in
+          openapi/power-query-fabric-dataflow-swagger.json directly.
+      - flow: Run a dataflow or pipeline job
+        command: fab jobs run / fab start
+      - flow: Move files into OneLake
+        command: fab cp
+      - flow: Use in CI
+        note: Documented GitHub Actions and Azure Pipelines examples.
+    features:
+      - interactive and command-line modes
+      - configurable output format
+      - autocompletion
+      - documented exit codes
+      - environment-variable configuration
+      - local caching
+  - name: Power Query SDK build tasks
+    display_name: Power Query Connector Development SDK
+    official: true
+    docs: https://learn.microsoft.com/en-us/power-query/power-query-sdk-vs-code
+    repository: https://github.com/microsoft/vscode-powerquery-sdk
+    distribution: vscode-extension
+    version: 0.7.1
+    published: '2026-02-18'
+    note: >-
+      Builds, tests and packages .mez custom connectors. Delivered as a VS Code
+      extension (PowerQuery.vscode-powerquery-sdk), not as a standalone binary on
+      any package registry, so there is no `install` line for a shell.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+    url: https://apievangelist.com

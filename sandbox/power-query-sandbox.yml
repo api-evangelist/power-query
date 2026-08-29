@@ -1,0 +1,58 @@
+generated: '2026-08-29'
+method: searched
+source: https://www.microsoft.com/en-us/power-platform/products/power-bi/pricing
+provider: Power Query
+providerId: power-query
+description: >-
+  Power Query publishes no test mode, no test-vs-live key prefixes, no test
+  fixtures and no time simulation. There is no sandbox in the payments sense.
+  What exists is a free evaluation path: a Microsoft Fabric free trial capacity
+  and a Power BI free account, both of which run against production and against
+  the caller's real tenant data. Recorded honestly rather than left absent.
+test_mode:
+  supported: false
+  key_prefixes: null
+  note: >-
+    Authentication is Microsoft Entra ID OAuth. There are no API keys and
+    therefore no test/live key prefix convention.
+free_evaluation:
+  - name: Microsoft Fabric free trial capacity
+    url: https://www.microsoft.com/en-us/power-platform/products/power-bi/pricing
+    price: '0.00'
+    note: >-
+      "Use trial capacity on any Fabric tool. No credit card required."
+      Runs against production; a dataflow created on trial capacity is a real
+      dataflow.
+  - name: Power BI free account
+    url: https://www.microsoft.com/en-us/power-platform/products/power-bi/landing/free-account
+    price: '0.00'
+    note: >-
+      Included in the Microsoft Fabric free account. Cannot share reports;
+      upgrade to Pro or Premium required to publish.
+local_development:
+  - name: Power Query SDK for VS Code
+    url: https://learn.microsoft.com/en-us/power-query/power-query-sdk-vs-code
+    note: >-
+      The only true offline test loop on this surface. Scaffolds a connector
+      project, runs credential and query tests locally against a real data
+      source, and packages a .mez without touching the service.
+  - name: '@microsoft/powerquery-parser'
+    url: https://www.npmjs.com/package/@microsoft/powerquery-parser
+    note: >-
+      Parse and validate M expressions locally with no service call at all.
+test_values:
+  published: false
+  note: >-
+    No magic identifiers, test cards, seeded fixtures or trigger endpoints are
+    published for this API. NONE ARE INVENTED HERE.
+time_simulation:
+  supported: false
+gotchas:
+  - >-
+    Items_DeleteDataflow with hardDelete=true is irreversible and there is no
+    sandbox to rehearse it in. See the reversibility block in
+    conventions/power-query-conventions.yml.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+    url: https://apievangelist.com

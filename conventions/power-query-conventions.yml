@@ -1,0 +1,173 @@
+generated: '2026-08-29'
+method: searched
+source: >-
+  openapi/power-query-fabric-dataflow-swagger.json plus
+  https://learn.microsoft.com/en-us/rest/api/fabric/articles/long-running-operation
+  and https://learn.microsoft.com/en-us/rest/api/fabric/articles/throttling
+docs: https://learn.microsoft.com/en-us/rest/api/fabric/articles/long-running-operation
+provider: Power Query
+providerId: power-query
+description: >-
+  Cross-cutting runtime semantics for the Power Query (Fabric Dataflow) REST API
+  on https://api.fabric.microsoft.com/v1.
+auth:
+  style: oauth2-bearer
+  header: 'Authorization: Bearer <Entra access token>'
+  detail: authentication/power-query-authentication.yml
+  in_spec: false
+  in_spec_note: >-
+    The published Swagger declares `security: []` and no securityDefinitions;
+    the auth model lives in prose only.
+idempotency:
+  supported: false
+  idempotency_key_header: null
+  note: >-
+    Fabric publishes no idempotency-key mechanism for the Dataflow API. GET,
+    PATCH and DELETE are naturally idempotent; POST creates
+    (Items_CreateDataflow), schedule creation and on-demand job starts are NOT,
+    and a retried POST can create a duplicate dataflow or a duplicate job
+    instance. Client-side de-duplication is the caller's problem — the safe
+    pattern is to poll the `Location` returned on 202 rather than re-POST.
+    Recorded as absent; no Idempotency pointer is emitted for this provider.
+long_running_operations:
+  supported: true
+  pattern: 202-accepted-with-location-poll
+  status_code: 202
+  headers:
+    - Location
+    - x-ms-operation-id
+    - Retry-After
+  operations:
+    - Items_CreateDataflow
+    - Items_GetDataflowDefinition
+    - Items_UpdateDataflowDefinition
+    - QueryExecution_ExecuteQuery
+    - BackgroundJobs_RunOnDemandExecute
+    - BackgroundJobs_RunOnDemandApplyChanges
+  docs: https://learn.microsoft.com/en-us/rest/api/fabric/articles/long-running-operation
+pagination:
+  style: continuation-token
+  request_param: continuationToken (query)
+  response_fields:
+    - continuationToken
+    - continuationUri
+  operations:
+    - Items_ListDataflows
+    - Items_DiscoverDataflowParameters
+  note: >-
+    Opaque token. The response also returns a fully-formed `continuationUri` the
+    client can GET directly; when both are absent the collection is exhausted.
+filtering:
+  operations:
+    - operation: Items_ListDataflows
+      params: [recursive, rootFolderId]
+      note: >-
+        `recursive` walks subfolders; `rootFolderId` scopes the listing to one
+        folder. No generic $filter/$select/$expand surface.
+versioning:
+  style: uri-path
+  current: v1
+  base: https://api.fabric.microsoft.com/v1
+  spec_version: v1 (info.version in the published Swagger)
+  note: >-
+    Fabric API versions are pinned in the path segment. Preview surfaces are
+    marked in the reference documentation rather than by a separate version
+    segment.
+error_envelope:
+  format: proprietary JSON
+  rfc9457: false
+  detail: errors/power-query-problem-types.yml
+  fields: [errorCode, message, requestId, moreDetails, isRetriable, relatedResource]
+request_tracing:
+  field: requestId
+  where: error response body (UUID)
+  operation_id_header: x-ms-operation-id (on 202 responses)
+rate_limit_signaling:
+  status: 429
+  headers:
+    - Retry-After
+  published_headers_note: >-
+    Fabric publishes NO RateLimit-* / X-RateLimit-* budget headers. A client
+    learns its remaining quota only by being throttled. Detail in
+    rate-limits/power-query-rate-limits.yml.
+  detail: rate-limits/power-query-rate-limits.yml
+content_negotiation:
+  request: application/json
+  response: application/json
+  special:
+    - operation: QueryExecution_ExecuteQuery
+      note: >-
+        Accepts an optional `Accept` request header to select the result
+        serialization.
+timeouts:
+  - operation: QueryExecution_ExecuteQuery
+    limit: 90 seconds
+    source: https://learn.microsoft.com/en-us/rest/api/fabric/dataflow/query-execution/execute-query
+    note: 'Documented verbatim: "Queries can run for a maximum of 90 seconds."'
+dry_run_mode:
+  supported: false
+  note: >-
+    No preview/validate/dry-run flag on any write operation. The closest surface
+    is QueryExecution_ExecuteQuery, which runs a query against a dataflow and
+    returns the result without persisting a definition change.
+reversibility:
+  grade: documented
+  summary: >-
+    The one destructive operation on the surface — deleting a dataflow — is
+    soft by default and therefore reversible, but Microsoft publishes no
+    retention window for it and no restore operation in this API, so the grade
+    stops at `documented`.
+  surfaces:
+    - write_operation: Items_DeleteDataflow
+      reversal: >-
+        Soft delete. `hardDelete` defaults to false; the spec states verbatim
+        "When set to `false` or not specified, the item is soft-deleted if the
+        item type supports it", and "When set to `true`, the item is permanently
+        deleted and cannot be recovered."
+      reversal_operation: null
+      reversal_operation_note: >-
+        No restore/undelete operation exists in the Dataflow REST API. Recovery
+        is performed outside this contract.
+      window: null
+      window_note: >-
+        NOT STATED. No retention period for a soft-deleted Fabric item was found
+        in the probed documentation (/fabric/fundamentals/soft-delete and
+        /fabric/fundamentals/workspaces-soft-delete both returned 404 on
+        2026-08-29). No window is asserted here.
+      caveats:
+        - >-
+          Soft delete can be turned off tenant-wide by an admin — errorCode
+          TenantSwitchDisabled — in which case a delete is irreversible.
+        - >-
+          hardDelete=true is unconditionally irreversible; an agent should never
+          set it without explicit human confirmation.
+      docs: https://learn.microsoft.com/en-us/rest/api/fabric/dataflow/items/delete-dataflow
+    - write_operation: Items_UpdateDataflowDefinition
+      reversal: >-
+        None published. Overwriting a definition replaces it; there is no
+        version history operation in this API. Callers should capture
+        Items_GetDataflowDefinition output first as their own rollback copy.
+      reversal_operation: null
+      window: null
+    - write_operation: BackgroundJobs_RunOnDemandExecute
+      reversal: >-
+        None published. A dataflow run writes to its destination; there is no
+        cancel or undo operation in the Dataflow API surface.
+      reversal_operation: null
+      window: null
+    - write_operation: BackgroundJobs_ScheduleExecute
+      reversal: >-
+        A schedule is a mutable item setting rather than a committed action; it
+        can be replaced. No delete-schedule operation is present in this spec.
+      reversal_operation: null
+      window: null
+cross_links:
+  errors: errors/power-query-problem-types.yml
+  lifecycle: lifecycle/power-query-lifecycle.yml
+  authentication: authentication/power-query-authentication.yml
+  scopes: scopes/power-query-scopes.yml
+  rate_limits: rate-limits/power-query-rate-limits.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+    url: https://apievangelist.com

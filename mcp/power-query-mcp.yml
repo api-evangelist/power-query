@@ -1,0 +1,79 @@
+generated: '2026-08-29'
+method: probed
+source: https://learn.microsoft.com/api/mcp
+provider: Power Query
+providerId: power-query
+name: Microsoft Learn MCP Server
+description: >-
+  Microsoft does not publish a Power Query-specific or Fabric-specific MCP server.
+  It does operate one official, anonymous, remote MCP server — the Microsoft Learn
+  MCP Server — which indexes the whole of Microsoft Learn, including the Power
+  Query, M language, connector SDK and Fabric Dataflow REST reference. It answers
+  documentation questions; it does NOT call the Dataflow API. Probed 2026-08-29:
+  initialize and tools/list both returned 200 with no authentication.
+scope: microsoft-wide-documentation
+scope_note: >-
+  This is a company-wide docs server, not a Power Query product server. It is
+  recorded here because it is the only MCP surface an agent can reach today for
+  this product, and because the same posture applies to every Microsoft product
+  repo in this catalog. It confers no ability to create, execute or delete a
+  dataflow — for that an agent calls the Fabric REST API directly
+  (openapi/power-query-fabric-dataflow-swagger.json).
+deployment:
+  mode: remote
+  endpoint: https://learn.microsoft.com/api/mcp
+  auth: none
+  verified: probed
+server_info:
+  name: Microsoft Learn MCP Server
+  version: 1.0.0
+  protocol_version: '2024-11-05'
+  transport: streamable-http (SSE framed responses)
+  capabilities:
+    - logging
+    - prompts
+    - resources
+    - tools
+tools:
+  - name: microsoft_docs_search
+    title: Microsoft Docs Search
+    description: >-
+      Search official Microsoft/Azure documentation and return up to 10 content
+      chunks (max 500 tokens each) with title, URL and excerpt.
+    input_schema:
+      query: string (a query or topic about Microsoft/Azure products, services, platforms, developer tools, frameworks, or APIs)
+    read_only: true
+  - name: microsoft_code_sample_search
+    title: Microsoft Code Sample Search
+    description: >-
+      Search for code snippets and examples in official Microsoft Learn
+      documentation, optionally filtered by language.
+    input_schema:
+      query: string
+      language: >-
+        string, optional — one of csharp javascript typescript python powershell
+        azurecli al sql java kusto cpp go rust ruby php
+    read_only: true
+  - name: microsoft_docs_fetch
+    title: Microsoft Docs Fetch
+    description: Fetch the full content of a Microsoft Learn documentation page by URL.
+    input_schema:
+      url: string
+    read_only: true
+tool_count: 3
+raw: mcp/power-query-mcp-tools.json
+probes:
+  - url: https://learn.microsoft.com/api/mcp
+    method: initialize
+    status: 200
+  - url: https://learn.microsoft.com/api/mcp
+    method: tools/list
+    status: 200
+  - url: https://api.fabric.microsoft.com/mcp
+    method: initialize
+    status: 404
+    note: No Fabric-hosted MCP endpoint at the obvious path.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+    url: https://apievangelist.com

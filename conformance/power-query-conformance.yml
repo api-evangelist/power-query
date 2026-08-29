@@ -1,0 +1,194 @@
+generated: '2026-08-29'
+method: derived
+source: >-
+  openapi/power-query-fabric-dataflow-swagger.json,
+  well-known/power-query-openid-configuration.json,
+  security/power-query-trust-center.yml, and the Fabric REST articles
+provider: Power Query
+providerId: power-query
+description: >-
+  Standards conformance assertions for the Power Query (Fabric Dataflow) REST
+  API. Each entry is evidence-backed; a false `conforms` is as much a finding as
+  a true one.
+standards:
+  - id: oauth2
+    name: OAuth 2.0
+    conforms: true
+    evidence: >-
+      All access is Microsoft Entra ID bearer tokens issued from
+      https://login.microsoftonline.com/common/oauth2/v2.0/token. Delegated
+      scopes documented per operation. See authentication/ and scopes/.
+  - id: oidc
+    name: OpenID Connect
+    conforms: true
+    evidence: >-
+      https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration
+      returned 200 with issuer https://login.microsoftonline.com/{tenantid}/v2.0
+      and scopes_supported [openid, profile, email, offline_access]. Saved to
+      well-known/power-query-openid-configuration.json.
+  - id: rfc8414
+    name: OAuth 2.0 Authorization Server Metadata
+    conforms: false
+    evidence: >-
+      /common/.well-known/oauth-authorization-server returned 404 on
+      login.microsoftonline.com. Discovery is served at the OIDC path only.
+  - id: rfc9116
+    name: security.txt
+    conforms: true
+    evidence: >-
+      https://msrc.microsoft.com/.well-known/security.txt returned 200 with
+      Contact, Policy, Acknowledgments, Encryption, Expires and
+      Preferred-Languages. Saved verbatim to well-known/power-query-security.txt.
+  - id: rfc9457
+    name: Problem Details for HTTP APIs
+    conforms: false
+    evidence: >-
+      Errors use a proprietary {errorCode, message, requestId, moreDetails,
+      isRetriable} envelope with media type application/json, not
+      application/problem+json. See errors/power-query-problem-types.yml.
+  - id: rfc8594
+    name: Sunset / Deprecation HTTP headers
+    conforms: false
+    evidence: >-
+      No Sunset or Deprecation headers are documented; deprecations are announced
+      on the Power BI blog and the Power BI Desktop change log instead. See
+      lifecycle/power-query-lifecycle.yml.
+  - id: rfc6585-429
+    name: HTTP 429 Too Many Requests with Retry-After
+    conforms: true
+    evidence: >-
+      Every one of the 13 operations in the published Swagger declares an
+      explicit 429 response carrying an integer Retry-After header.
+  - id: ratelimit-headers
+    name: IETF RateLimit header fields (draft)
+    conforms: false
+    evidence: >-
+      No RateLimit-* or X-RateLimit-* headers are published. Retry-After on a 429
+      is the only runtime signal.
+  - id: openapi
+    name: OpenAPI / Swagger
+    conforms: true
+    version: Swagger 2.0
+    evidence: >-
+      openapi/power-query-fabric-dataflow-swagger.json — swagger 2.0, 13
+      operations, all with operationId, summary and description, published by
+      Microsoft at github.com/microsoft/fabric-rest-api-specs. Not OpenAPI 3.x.
+  - id: json-schema
+    name: JSON Schema
+    conforms: partial
+    evidence: >-
+      Swagger 2.0 definitions (26 dataflow + 47 common) — JSON Schema draft-4
+      subset, not 2020-12.
+  - id: pagination
+    name: Cursor pagination
+    conforms: true
+    evidence: >-
+      PaginatedResponse mixin provides continuationToken and continuationUri on
+      Items_ListDataflows and Items_DiscoverDataflowParameters.
+  - id: idempotency
+    name: Idempotency keys
+    conforms: false
+    evidence: >-
+      No idempotency key header is published for this surface. A retried
+      Items_CreateDataflow can create a duplicate.
+  - id: long-running-operations
+    name: 202 Accepted + Location polling
+    conforms: true
+    evidence: >-
+      Six operations return 202 with Location, x-ms-operation-id and Retry-After.
+      Documented at /rest/api/fabric/articles/long-running-operation.
+  - id: soc2
+    name: SOC 2
+    conforms: true
+    scope: Microsoft-wide / Power Platform
+    evidence: https://learn.microsoft.com/en-us/compliance/regulatory/offering-home
+  - id: iso27001
+    name: ISO/IEC 27001
+    conforms: true
+    scope: Microsoft-wide / Power Platform
+    evidence: https://learn.microsoft.com/en-us/compliance/regulatory/offering-home
+  - id: iso42001
+    name: ISO/IEC 42001 (AI management systems)
+    conforms: true
+    scope: Microsoft-wide
+    evidence: https://learn.microsoft.com/en-us/compliance/regulatory/offering-home
+  - id: fedramp
+    name: FedRAMP
+    conforms: true
+    scope: Microsoft-wide
+    evidence: https://learn.microsoft.com/en-us/compliance/regulatory/offering-home
+  - id: hipaa
+    name: HIPAA / HITECH
+    conforms: true
+    scope: Microsoft-wide
+    evidence: https://learn.microsoft.com/en-us/compliance/regulatory/offering-home
+  - id: gdpr
+    name: GDPR
+    conforms: true
+    scope: Microsoft-wide
+    evidence: https://learn.microsoft.com/en-us/compliance/regulatory/offering-home
+  - id: csaf
+    name: CSAF 2.0 (Common Security Advisory Framework)
+    conforms: true
+    evidence: >-
+      security.txt advertises https://msrc.microsoft.com/csaf/provider-metadata.json
+domain_standards:
+  market: data integration / ETL / business intelligence
+  findings:
+    - id: power-query-m
+      name: Power Query M formula language
+      conforms: true
+      role: publisher
+      evidence: >-
+        Microsoft publishes the M language specification and reference at
+        https://learn.microsoft.com/en-us/powerquery-m/ and ships an MIT-licensed
+        reference parser (@microsoft/powerquery-parser 2.0.0). M is the de facto
+        data-mashup language across Excel, Power BI, Analysis Services, Azure Data
+        Factory and Fabric — this provider does not merely conform to a domain
+        standard, it defines one.
+    - id: mez-connector-package
+      name: .mez custom connector package
+      conforms: true
+      role: publisher
+      evidence: >-
+        The Power Query Connector SDK defines the .mez packaging format and the
+        Data Connector interface; samples at github.com/microsoft/DataConnectors.
+    - id: adbc
+      name: Arrow Database Connectivity (ADBC)
+      conforms: true
+      role: adopter
+      evidence: >-
+        Microsoft published "Migrating from embedded ODBC drivers to ADBC in
+        Power BI" (2026-06-18), moving connector data transport onto the Apache
+        Arrow ADBC standard. Mirrored in blogs/.
+    - id: odbc
+      name: ODBC
+      conforms: true
+      role: adopter
+      evidence: >-
+        Power Query connectors consume ODBC drivers; documented in the connector
+        SDK.
+    - id: odata
+      name: OData
+      conforms: partial
+      role: consumer-only
+      evidence: >-
+        Power Query ships an OData.Feed connector for CONSUMING OData services.
+        The Fabric Dataflow REST API itself is not an OData service — it exposes
+        no $metadata document and no $filter/$select/$expand surface.
+    - id: sensitivity-labels
+      name: Microsoft Purview Information Protection sensitivity labels
+      conforms: true
+      role: adopter
+      evidence: >-
+        The shared Item schema carries a sensitivityLabel property, so labels
+        travel with the dataflow item through the API.
+  not_applicable:
+    - >-
+      No SCIM, FHIR, FAPI, PSD2, OpenRTB, LTI/OneRoster, HL7v2, X12, EDIFACT or
+      ISO 20022 signature is present, and none is expected — this is a data
+      transformation surface, not an identity, health, finance or advertising one.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+    url: https://apievangelist.com
