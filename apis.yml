@@ -6,6 +6,19 @@ description: >-
   programmatic access to Power Query functionality for data connectivity,
   transformation, and integration using the M formula language and connector SDK.
 type: Index
+deliveryModel:
+  model: open-core
+  license: MIT
+  open_source: true
+  commercial: true
+  callable_host: false
+  label: Open core · an OSS project plus a commercial hosted product
+  confidence: high
+  source:
+  - license
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: unknown
@@ -144,6 +157,14 @@ apis:
       - type: APIReference
         url: https://learn.microsoft.com/en-us/fabric/data-factory/pipeline-rest-api
 common:
+  - type: IssueTracker
+    url: https://github.com/Microsoft/DataConnectors/issues
+  - type: Releases
+    url: https://github.com/Microsoft/DataConnectors/releases
+  - type: SecurityPolicy
+    url: https://github.com/microsoft/DataConnectors/blob/master/SECURITY.md
+  - type: CodeOfConduct
+    url: https://github.com/microsoft/DataConnectors/blob/master/CODE_OF_CONDUCT.md
   - type: License
     name: MIT
     url: https://github.com/Microsoft/DataConnectors/blob/master/LICENSE
