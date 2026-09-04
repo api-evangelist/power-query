@@ -1,17 +1,17 @@
 ---
 kin_checks:
   slug: power-query
-  schema_version: 0.17.2
-  scored_at: '2026-09-01'
-  run_ts: 2026-09-01T063623
+  schema_version: 0.18.2
+  scored_at: '2026-09-04'
+  run_ts: 2026-09-04T062714
   note: Actionable checks only (missed + partial). earned/na are every other check
-    in rubric/scoring-0.17.2.yml; counts below let you verify that.
+    in rubric/scoring-0.18.2.yml; counts below let you verify that.
   counts:
-    total: 130
-    earned: 65
+    total: 132
+    earned: 66
     partial: 10
-    missed: 39
-    na: 16
+    missed: 38
+    na: 18
   checks:
   - id: well_known_published
     status: missed
@@ -29,8 +29,6 @@ kin_checks:
   - id: info_complete
     status: missed
     detail: 0 of 1 openapi documents pass
-  - id: servers_resolvable
-    status: missed
   - id: components_reuse
     status: missed
     detail: 0 of 1 openapi documents pass
@@ -99,25 +97,22 @@ kin_checks:
     status: missed
   - id: agentic_commerce
     status: missed
+  - id: servers_resolvable
+    status: partial
+    earned: 1.67
   - id: examples_present
     status: partial
     earned: 1.0
-  - id: rate_limits_documented
+  - id: conformance_declared
     status: partial
-    earned: 2.0
-  - id: rate_limits_rich
-    status: partial
-    earned: 1.0
+    earned: 1.5
   - id: github_org_present
     status: partial
     earned: 1.0
     detail: pointer liveness 0.5
-  - id: plans_present
+  - id: agent_skill_present
     status: partial
-    earned: 2.0
-  - id: plans_multiple
-    status: partial
-    earned: 1.0
+    earned: 0.75
   - id: mcp_server
     status: partial
     earned: 4.8
@@ -134,3 +129,7 @@ kin_checks:
     status: partial
     earned: 1.75
     detail: 'grade: documented'
+  - id: agent_skills
+    status: partial
+    earned: 1.25
+    detail: 'authorship: derived'
