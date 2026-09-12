@@ -29,8 +29,7 @@ accessModel:
   generated: '2026-07-22'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/power-query.png
-url: >-
-  https://raw.githubusercontent.com/api-evangelist/power-query/refs/heads/main/apis.yml
+url: https://powerquery.microsoft.com/
 created: '2024-01-01'
 modified: '2026-08-29'
 specificationVersion: '0.23'
@@ -316,5 +315,5 @@ x-enrichment:
   status: enriched
   artifacts_added: 43
   pass: local-v1
-x-parent: microsoft
+x-parent: microsoft-azure
 x-relationship: product
