@@ -1,7 +1,13 @@
 aid: power-query
 name: Power Query
-description: >-
-  Power Query is Microsoft's data connectivity and transformation engine, driven by the M formula language. It ships inside Excel, Power BI Desktop, Analysis Services, Azure Data Factory and Microsoft Fabric, and reaches 300+ data sources through built-in and custom connectors built with the MIT-licensed Power Query SDK. Its programmatic surface is the Microsoft Fabric Dataflow REST API on api.fabric.microsoft.com: thirteen Swagger-documented operations that create, read, update and delete dataflows, publish and retrieve their Power Query definitions, discover their parameters, schedule execute and applyChanges jobs, and execute an M query against a dataflow on demand. Authentication is Microsoft Entra ID OAuth 2.0 with delegated Dataflow.* and Item.* scopes layered on top of Fabric workspace roles.
+description: 'Power Query is Microsoft''s data connectivity and transformation engine, driven by the M
+  formula language. It ships inside Excel, Power BI Desktop, Analysis Services, Azure Data Factory and
+  Microsoft Fabric, and reaches 300+ data sources through built-in and custom connectors built with the
+  MIT-licensed Power Query SDK. Its programmatic surface is the Microsoft Fabric Dataflow REST API on
+  api.fabric.microsoft.com: thirteen Swagger-documented operations that create, read, update and delete
+  dataflows, publish and retrieve their Power Query definitions, discover their parameters, schedule execute
+  and applyChanges jobs, and execute an M query against a dataflow on demand. Authentication is Microsoft
+  Entra ID OAuth 2.0 with delegated Dataflow.* and Item.* scopes layered on top of Fabric workspace roles.'
 type: Index
 deliveryModel:
   model: open-core
@@ -31,7 +37,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/power-query.png
 url: https://powerquery.microsoft.com/
 created: '2024-01-01'
-modified: '2026-08-29'
+modified: '2026-09-16'
 specificationVersion: '0.23'
 tags:
 - Business Intelligence
@@ -48,9 +54,8 @@ tags:
 apis:
 - aid: power-query:m-language
   name: Power Query M Formula Language
-  description: >-
-    API and language reference for the M formula language used in Power Query
-    for data transformation expressions and custom functions.
+  description: API and language reference for the M formula language used in Power Query for data transformation
+    expressions and custom functions.
   humanURL: https://learn.microsoft.com/en-us/powerquery-m/
   baseURL: https://learn.microsoft.com/powerquery-m/
   tags:
@@ -66,9 +71,8 @@ apis:
     url: https://learn.microsoft.com/en-us/powerquery-m/quick-tour-of-the-power-query-m-formula-language
 - aid: power-query:connectors-api
   name: Power Query Connectors API
-  description: >-
-    API for building and managing custom data connectors for Power Query using
-    the M language and Connector SDK.
+  description: API for building and managing custom data connectors for Power Query using the M language
+    and Connector SDK.
   humanURL: https://learn.microsoft.com/en-us/power-query/connectors/
   baseURL: https://github.com/Microsoft/DataConnectors
   tags:
@@ -86,9 +90,8 @@ apis:
     url: https://learn.microsoft.com/en-us/power-query/creating-first-connector
 - aid: power-query:dataflows-api
   name: Power Query Dataflows API
-  description: >-
-    API for managing and executing Power Query dataflows in Power Platform
-    and Power BI for self-service ETL workflows.
+  description: API for managing and executing Power Query dataflows in Power Platform and Power BI for
+    self-service ETL workflows.
   humanURL: https://learn.microsoft.com/en-us/power-bi/transform-model/dataflows/dataflows-introduction-self-service
   baseURL: https://api.powerbi.com/v1.0/myorg/groups/{groupId}/dataflows
   tags:
@@ -104,10 +107,8 @@ apis:
     url: https://learn.microsoft.com/en-us/power-bi/transform-model/dataflows/dataflows-introduction-self-service
 - aid: power-query:sdk
   name: Power Query SDK
-  description: >-
-    Development toolkit for building custom Power Query connectors using
-    Visual Studio Code, including project scaffolding, testing, and packaging
-    of .mez connector files.
+  description: Development toolkit for building custom Power Query connectors using Visual Studio Code,
+    including project scaffolding, testing, and packaging of .mez connector files.
   humanURL: https://learn.microsoft.com/en-us/power-query/install-sdk
   baseURL: https://learn.microsoft.com/en-us/power-query/power-query-sdk-vs-code
   tags:
@@ -122,30 +123,84 @@ apis:
     url: https://learn.microsoft.com/en-us/power-query/install-sdk
   - type: GitHubRepository
     url: https://github.com/microsoft/vscode-powerquery-sdk
-- aid: power-query:fabric-api
-  name: Fabric Dataflow REST API (Power Query)
-  description: >-
-    REST API for the Microsoft Fabric Dataflow item - the productized Power Query mashup engine. Creates, reads, updates and deletes dataflows, publishes and retrieves their Power Query definitions, discovers their parameters, schedules execute and applyChanges jobs, and executes a Power Query M query against a dataflow on demand. Thirteen operations, Swagger 2.0, published by Microsoft at github.com/microsoft/fabric-rest-api-specs.
-  humanURL: https://learn.microsoft.com/en-us/rest/api/fabric/dataflow/items
-  baseURL: https://api.fabric.microsoft.com/v1
+- aid: power-query:power-query-backgroundjobs-api
+  name: Power Query Background Jobs API
+  description: The BackgroundJobs API from Power Query — 4 operation(s) for backgroundjobs.
+  humanURL: https://learn.microsoft.com/en-us/powerquery-m/
+  baseURL: https://learn.microsoft.com/powerquery-m/
   tags:
-  - Microsoft Fabric
-  - Pipelines
-  - Programmatic Execution
-  - REST
+  - BackgroundJobs
   properties:
+  - type: OpenAPI
+    url: openapi/power-query-backgroundjobs-api-openapi.yml
   - type: Documentation
     url: https://blog.fabric.microsoft.com/en-US/blog/execute-power-query-programmatically-in-microsoft-fabric/
   - type: APIReference
     url: https://learn.microsoft.com/en-us/fabric/data-factory/pipeline-rest-api
-  - type: OpenAPI
-    url: openapi/power-query-fabric-dataflow-swagger.json
   - type: APIReference
     url: https://learn.microsoft.com/en-us/rest/api/fabric/dataflow/items
   - type: Examples
     url: examples/fabric-dataflow/
-  - type: Overlay
-    url: overlays/power-query-fabric-dataflow-overlay.yaml
+  - type: Authentication
+    url: authentication/power-query-authentication.yml
+  - type: OAuthScopes
+    url: scopes/power-query-scopes.yml
+  - type: Conventions
+    url: conventions/power-query-conventions.yml
+  - type: DataModel
+    url: data-model/power-query-data-model.yml
+  - type: ErrorCatalog
+    url: errors/power-query-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/power-query-rate-limits.yml
+- aid: power-query:power-query-items-api
+  name: Power Query Items API
+  description: The Items API from Power Query — 5 operation(s) for items.
+  humanURL: https://learn.microsoft.com/en-us/powerquery-m/
+  baseURL: https://learn.microsoft.com/powerquery-m/
+  tags:
+  - Items
+  properties:
+  - type: OpenAPI
+    url: openapi/power-query-items-api-openapi.yml
+  - type: Documentation
+    url: https://blog.fabric.microsoft.com/en-US/blog/execute-power-query-programmatically-in-microsoft-fabric/
+  - type: APIReference
+    url: https://learn.microsoft.com/en-us/fabric/data-factory/pipeline-rest-api
+  - type: APIReference
+    url: https://learn.microsoft.com/en-us/rest/api/fabric/dataflow/items
+  - type: Examples
+    url: examples/fabric-dataflow/
+  - type: Authentication
+    url: authentication/power-query-authentication.yml
+  - type: OAuthScopes
+    url: scopes/power-query-scopes.yml
+  - type: Conventions
+    url: conventions/power-query-conventions.yml
+  - type: DataModel
+    url: data-model/power-query-data-model.yml
+  - type: ErrorCatalog
+    url: errors/power-query-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/power-query-rate-limits.yml
+- aid: power-query:power-query-queryexecution-api
+  name: Power Query Query Execution API
+  description: The QueryExecution API from Power Query — 1 operation(s) for queryexecution.
+  humanURL: https://learn.microsoft.com/en-us/powerquery-m/
+  baseURL: https://learn.microsoft.com/powerquery-m/
+  tags:
+  - QueryExecution
+  properties:
+  - type: OpenAPI
+    url: openapi/power-query-queryexecution-api-openapi.yml
+  - type: Documentation
+    url: https://blog.fabric.microsoft.com/en-US/blog/execute-power-query-programmatically-in-microsoft-fabric/
+  - type: APIReference
+    url: https://learn.microsoft.com/en-us/fabric/data-factory/pipeline-rest-api
+  - type: APIReference
+    url: https://learn.microsoft.com/en-us/rest/api/fabric/dataflow/items
+  - type: Examples
+    url: examples/fabric-dataflow/
   - type: Authentication
     url: authentication/power-query-authentication.yml
   - type: OAuthScopes
@@ -211,7 +266,7 @@ common:
 - type: Roadmap
   url: https://roadmap.fabric.microsoft.com/
 - type: OpenAPI
-  url: openapi/power-query-fabric-dataflow-swagger.json
+  url: openapi/_original/power-query-fabric-dataflow-swagger.json
 - type: Examples
   url: examples/fabric-dataflow/
 - type: Overlay
@@ -271,7 +326,8 @@ common:
 - type: Features
   data:
   - name: Data Transformation Engine
-    description: Powerful M formula language for complex data transformations including filtering, pivoting, merging, and custom functions.
+    description: Powerful M formula language for complex data transformations including filtering, pivoting,
+      merging, and custom functions.
   - name: Custom Connector Development
     description: Build custom data connectors using the Power Query SDK for connecting to any data source.
   - name: Self-Service ETL
