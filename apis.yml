@@ -54,7 +54,8 @@ tags:
 apis:
 - aid: power-query:m-language
   name: Power Query M Formula Language
-  description: API and language reference for the M formula language used in Power Query for data transformation
+  description: >-
+    API and language reference for the M formula language used in Power Query for data transformation
     expressions and custom functions.
   humanURL: https://learn.microsoft.com/en-us/powerquery-m/
   baseURL: https://learn.microsoft.com/powerquery-m/
@@ -68,11 +69,13 @@ apis:
   - type: APIReference
     url: https://learn.microsoft.com/en-us/powerquery-m/power-query-m-function-reference
   - type: GettingStarted
-    url: https://learn.microsoft.com/en-us/powerquery-m/quick-tour-of-the-power-query-m-formula-language
+    url: >-
+      https://learn.microsoft.com/en-us/powerquery-m/quick-tour-of-the-power-query-m-formula-language
 - aid: power-query:connectors-api
   name: Power Query Connectors API
-  description: API for building and managing custom data connectors for Power Query using the M language
-    and Connector SDK.
+  description: >-
+    API for building and managing custom data connectors for Power Query using the M language and Connector
+    SDK.
   humanURL: https://learn.microsoft.com/en-us/power-query/connectors/
   baseURL: https://github.com/Microsoft/DataConnectors
   tags:
@@ -90,9 +93,11 @@ apis:
     url: https://learn.microsoft.com/en-us/power-query/creating-first-connector
 - aid: power-query:dataflows-api
   name: Power Query Dataflows API
-  description: API for managing and executing Power Query dataflows in Power Platform and Power BI for
-    self-service ETL workflows.
-  humanURL: https://learn.microsoft.com/en-us/power-bi/transform-model/dataflows/dataflows-introduction-self-service
+  description: >-
+    API for managing and executing Power Query dataflows in Power Platform and Power BI for self-service
+    ETL workflows.
+  humanURL: >-
+    https://learn.microsoft.com/en-us/power-bi/transform-model/dataflows/dataflows-introduction-self-service
   baseURL: https://api.powerbi.com/v1.0/myorg/groups/{groupId}/dataflows
   tags:
   - Dataflows
@@ -100,15 +105,18 @@ apis:
   - Self-Service ETL
   properties:
   - type: Documentation
-    url: https://learn.microsoft.com/en-us/power-bi/transform-model/dataflows/dataflows-introduction-self-service
+    url: >-
+      https://learn.microsoft.com/en-us/power-bi/transform-model/dataflows/dataflows-introduction-self-service
   - type: APIReference
     url: https://learn.microsoft.com/en-us/rest/api/power-bi/dataflows
   - type: GettingStarted
-    url: https://learn.microsoft.com/en-us/power-bi/transform-model/dataflows/dataflows-introduction-self-service
+    url: >-
+      https://learn.microsoft.com/en-us/power-bi/transform-model/dataflows/dataflows-introduction-self-service
 - aid: power-query:sdk
   name: Power Query SDK
-  description: Development toolkit for building custom Power Query connectors using Visual Studio Code,
-    including project scaffolding, testing, and packaging of .mez connector files.
+  description: >-
+    Development toolkit for building custom Power Query connectors using Visual Studio Code, including
+    project scaffolding, testing, and packaging of .mez connector files.
   humanURL: https://learn.microsoft.com/en-us/power-query/install-sdk
   baseURL: https://learn.microsoft.com/en-us/power-query/power-query-sdk-vs-code
   tags:
@@ -123,36 +131,6 @@ apis:
     url: https://learn.microsoft.com/en-us/power-query/install-sdk
   - type: GitHubRepository
     url: https://github.com/microsoft/vscode-powerquery-sdk
-- aid: power-query:power-query-backgroundjobs-api
-  name: Power Query Background Jobs API
-  description: The BackgroundJobs API from Power Query — 4 operation(s) for backgroundjobs.
-  humanURL: https://learn.microsoft.com/en-us/powerquery-m/
-  baseURL: https://learn.microsoft.com/powerquery-m/
-  tags:
-  - BackgroundJobs
-  properties:
-  - type: OpenAPI
-    url: openapi/power-query-backgroundjobs-api-openapi.yml
-  - type: Documentation
-    url: https://blog.fabric.microsoft.com/en-US/blog/execute-power-query-programmatically-in-microsoft-fabric/
-  - type: APIReference
-    url: https://learn.microsoft.com/en-us/fabric/data-factory/pipeline-rest-api
-  - type: APIReference
-    url: https://learn.microsoft.com/en-us/rest/api/fabric/dataflow/items
-  - type: Examples
-    url: examples/fabric-dataflow/
-  - type: Authentication
-    url: authentication/power-query-authentication.yml
-  - type: OAuthScopes
-    url: scopes/power-query-scopes.yml
-  - type: Conventions
-    url: conventions/power-query-conventions.yml
-  - type: DataModel
-    url: data-model/power-query-data-model.yml
-  - type: ErrorCatalog
-    url: errors/power-query-problem-types.yml
-  - type: RateLimits
-    url: rate-limits/power-query-rate-limits.yml
 - aid: power-query:power-query-items-api
   name: Power Query Items API
   description: The Items API from Power Query — 5 operation(s) for items.
@@ -164,7 +142,8 @@ apis:
   - type: OpenAPI
     url: openapi/power-query-items-api-openapi.yml
   - type: Documentation
-    url: https://blog.fabric.microsoft.com/en-US/blog/execute-power-query-programmatically-in-microsoft-fabric/
+    url: >-
+      https://blog.fabric.microsoft.com/en-US/blog/execute-power-query-programmatically-in-microsoft-fabric/
   - type: APIReference
     url: https://learn.microsoft.com/en-us/fabric/data-factory/pipeline-rest-api
   - type: APIReference
@@ -183,18 +162,50 @@ apis:
     url: errors/power-query-problem-types.yml
   - type: RateLimits
     url: rate-limits/power-query-rate-limits.yml
-- aid: power-query:power-query-queryexecution-api
-  name: Power Query Query Execution API
-  description: The QueryExecution API from Power Query — 1 operation(s) for queryexecution.
+- aid: power-query:power-query-background-jobs-api
+  name: Power Query Background Jobs API
+  description: The Background Jobs API from Power Query — 4 operation(s) for background jobs.
   humanURL: https://learn.microsoft.com/en-us/powerquery-m/
   baseURL: https://learn.microsoft.com/powerquery-m/
   tags:
-  - QueryExecution
+  - Background Jobs
   properties:
   - type: OpenAPI
-    url: openapi/power-query-queryexecution-api-openapi.yml
+    url: openapi/power-query-background-jobs-api-openapi.yml
   - type: Documentation
-    url: https://blog.fabric.microsoft.com/en-US/blog/execute-power-query-programmatically-in-microsoft-fabric/
+    url: >-
+      https://blog.fabric.microsoft.com/en-US/blog/execute-power-query-programmatically-in-microsoft-fabric/
+  - type: APIReference
+    url: https://learn.microsoft.com/en-us/fabric/data-factory/pipeline-rest-api
+  - type: APIReference
+    url: https://learn.microsoft.com/en-us/rest/api/fabric/dataflow/items
+  - type: Examples
+    url: examples/fabric-dataflow/
+  - type: Authentication
+    url: authentication/power-query-authentication.yml
+  - type: OAuthScopes
+    url: scopes/power-query-scopes.yml
+  - type: Conventions
+    url: conventions/power-query-conventions.yml
+  - type: DataModel
+    url: data-model/power-query-data-model.yml
+  - type: ErrorCatalog
+    url: errors/power-query-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/power-query-rate-limits.yml
+- aid: power-query:power-query-query-execution-api
+  name: Power Query Query Execution API
+  description: The Query Execution API from Power Query — 1 operation(s) for query execution.
+  humanURL: https://learn.microsoft.com/en-us/powerquery-m/
+  baseURL: https://learn.microsoft.com/powerquery-m/
+  tags:
+  - Query Execution
+  properties:
+  - type: OpenAPI
+    url: openapi/power-query-query-execution-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://blog.fabric.microsoft.com/en-US/blog/execute-power-query-programmatically-in-microsoft-fabric/
   - type: APIReference
     url: https://learn.microsoft.com/en-us/fabric/data-factory/pipeline-rest-api
   - type: APIReference
