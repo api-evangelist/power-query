@@ -137,6 +137,8 @@ apis:
   humanURL: https://learn.microsoft.com/en-us/powerquery-m/
   baseURL: https://learn.microsoft.com/powerquery-m/
   tags:
+  - Item
+  tags_raw:
   - Items
   properties:
   - type: OpenAPI
