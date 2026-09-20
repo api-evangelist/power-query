@@ -1,0 +1,58 @@
+# Kin Score artifact — power-query — 2026-09-19T165737
+# The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
+---
+kin_score:
+  slug: power-query
+  schema_version: 0.22.0
+  scored_at: '2026-09-19'
+  run_ts: 2026-09-19T165737
+  composite: 80.5
+  band: exemplar
+  facets:
+    discoverability: 88.9
+    contract_quality: 57.1
+    contract_governance: 19.7
+    operational_transparency: 89.5
+    developer_ergonomics: 80.4
+    access_clarity: 100.0
+  agent_readiness:
+    score: 34.5
+    band: agent-ready
+    dimensions:
+      spec_presence: true
+      agentic_access: false
+      reversibility_documented: false
+      mcp_server: platform
+      auth_clarity: served
+      idempotency: false
+      error_semantics: verified
+      openapi_examples: documented
+      rate_limit_signal: verified
+      event_surface_described: false
+      agent_skills: derived
+      well_known_catalog: false
+      consent_identity: false
+      agent_card: false
+      dry_run_mode: false
+      delegated_identity: false
+      protected_resource_metadata: false
+      dynamic_client_registration: false
+      agentic_commerce: false
+  regulatory:
+    applies: true
+    regime: Energy & Utilities
+    regime_id: energy_utilities
+    score: 71.6
+    matched_via: tags
+  open_source:
+    applies: true
+    score: 75.0
+  provenance:
+    mcp: first-party
+    skills: derived
+    conformance: derived
+    contracts:
+      total: 3
+      derived: 0
+      coverage: 0.0
+      callable: 100.0
