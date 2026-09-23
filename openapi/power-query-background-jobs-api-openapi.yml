@@ -1,0 +1,435 @@
+openapi: 3.2.0
+info:
+  title: Dataflow REST Background Jobs API
+  version: v1
+servers:
+- url: https://api.fabric.microsoft.com/v1
+security: []
+tags:
+- name: Background Jobs
+paths:
+  /workspaces/{workspaceId}/dataflows/{dataflowId}/jobs/execute/schedules:
+    post:
+      summary: Create a new execute schedule for a dataflow.
+      description: '> [!NOTE]
+
+        > This API is part of a Preview release and is provided for evaluation and development purposes only. It may change based on feedback and is not recommended for production use.
+
+
+        ## Permissions
+
+
+        - The caller must have a *member* or higher workspace role.
+
+        - Access to all connections used by the dataflow
+
+
+        ## Required Delegated Scopes:
+
+
+        Dataflow.Execute.All and Dataflow.ReadWrite.All
+
+
+        ## Microsoft Entra supported identities
+
+
+        This API supports the Microsoft identities listed in this section.
+
+
+        | Identity | Support |
+
+        |-|-|
+
+        | User | Yes |
+
+        | Service principal and Managed identities | No |
+
+
+        ## Interface'
+      tags:
+      - Background Jobs
+      operationId: BackgroundJobs_ScheduleExecute
+      parameters:
+      - in: path
+        name: workspaceId
+        description: The workspace ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: path
+        name: dataflowId
+        description: The item ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '201':
+          description: Successfully create the schedule.
+          headers:
+            Location:
+              description: The URL of the newly created schedule.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: ./definitions.json#/definitions/DataflowSchedule
+        '429':
+          description: The service rate limit was exceeded. The server returns a `Retry-After` header indicating, in seconds, how long the client must wait before sending additional requests.
+          x-ms-error-response: true
+          headers:
+            Retry-After:
+              description: The number of seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: ../common/definitions.json#/definitions/ErrorResponse
+        default:
+          description: 'Common error codes:
+
+
+            * InsufficientPrivileges - The caller does not have sufficient permissions to access the item
+
+
+            * ItemNotFound - Requested item id not found
+
+
+            * ScheduleExceedsLimit - The number of created schedules for the item exceeds the limit'
+          content:
+            application/json:
+              schema:
+                $ref: ../common/definitions.json#/definitions/ErrorResponse
+      x-ms-examples:
+        Create dataflow Execute schedule example:
+          $ref: ./examples/CreateDataflowExecuteSchedule.json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./definitions.json#/definitions/CreateDataflowExecuteScheduleRequest
+        description: A dataflow execute schedule create request.
+        required: true
+  /workspaces/{workspaceId}/dataflows/{dataflowId}/jobs/applyChanges/schedules:
+    post:
+      summary: Create a new apply changes schedule for a dataflow.
+      description: '> [!NOTE]
+
+        > This API is part of a Preview release and is provided for evaluation and development purposes only. It may change based on feedback and is not recommended for production use.
+
+
+        ## Required Delegated Scopes:
+
+
+        Dataflow.Execute.All and Dataflow.ReadWrite.All
+
+
+        ## Microsoft Entra supported identities
+
+
+        This API supports the Microsoft identities listed in this section.
+
+
+        | Identity | Support |
+
+        |-|-|
+
+        | User | Yes |
+
+        | Service principal and Managed identities | No |
+
+
+        ## Interface'
+      tags:
+      - Background Jobs
+      operationId: BackgroundJobs_ScheduleApplyChanges
+      parameters:
+      - in: path
+        name: workspaceId
+        description: The workspace ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: path
+        name: dataflowId
+        description: The item ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '201':
+          description: Successfully create the schedule.
+          headers:
+            Location:
+              description: The URL of the newly created schedule.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: ./definitions.json#/definitions/DataflowSchedule
+        '429':
+          description: The service rate limit was exceeded. The server returns a `Retry-After` header indicating, in seconds, how long the client must wait before sending additional requests.
+          x-ms-error-response: true
+          headers:
+            Retry-After:
+              description: The number of seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: ../common/definitions.json#/definitions/ErrorResponse
+        default:
+          description: 'Common error codes:
+
+
+            * InsufficientPrivileges - The caller does not have sufficient permissions to access the item
+
+
+            * ItemNotFound - Requested item id not found
+
+
+            * ScheduleExceedsLimit - The number of created schedules for the item exceeds the limit'
+          content:
+            application/json:
+              schema:
+                $ref: ../common/definitions.json#/definitions/ErrorResponse
+      x-ms-examples:
+        Create dataflow ApplyChanges schedule example:
+          $ref: ./examples/CreateDataflowApplyChangesSchedule.json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./definitions.json#/definitions/CreateDataflowApplyChangesScheduleRequest
+        description: A apply changes dataflow schedule create request.
+        required: true
+  /workspaces/{workspaceId}/dataflows/{dataflowId}/jobs/execute/instances:
+    post:
+      summary: Run on-demand execute job instance
+      description: '> [!NOTE]
+
+        > This API is part of a Preview release and is provided for evaluation and development purposes only. It may change based on feedback and is not recommended for production use.
+
+        > The URL for this API has been updated to include the job type as part of the path, replacing the previous use of a query parameter. For backward compatibility, invocations using the query parameter are still supported.
+
+
+        ## Permissions
+
+
+        - The caller must have a *member* or higher workspace role.
+
+        - Access to all connections used by the dataflow
+
+
+        ## Required Delegated Scopes
+
+
+        For dataflows APIs use these scope types:
+
+        - Specific scope: Dataflow.Execute.All
+
+
+        for more information about scopes, see: scopes article.
+
+
+        ## Microsoft Entra supported identities
+
+
+        This API supports the Microsoft identities listed in this section.
+
+
+        | Identity | Support |
+
+        |-|-|
+
+        | User | Yes |
+
+        | Service principal and Managed identities | No |
+
+
+        ## Interface'
+      tags:
+      - Background Jobs
+      operationId: BackgroundJobs_RunOnDemandExecute
+      parameters:
+      - in: path
+        name: workspaceId
+        description: The workspace ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: path
+        name: dataflowId
+        description: The dataflow ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '202':
+          description: 'Request accepted, job execution is in progress.
+
+
+            ---
+
+            **Headers:**
+
+
+            **Location** `string` - The URL to the job instance resource.
+
+
+            **Retry-After** `integer` - The number of seconds the client should wait before polling the job status for the first time. Clients must use this value to determine when to check the job status and should wait at least this many seconds before the first status poll.'
+        '429':
+          description: The service rate limit was exceeded. The server returns a `Retry-After` header indicating, in seconds, how long the client must wait before sending additional requests.
+          x-ms-error-response: true
+          headers:
+            Retry-After:
+              description: The number of seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: ../common/definitions.json#/definitions/ErrorResponse
+        default:
+          description: 'Common error codes:
+
+
+            * InsufficientPrivileges - The caller does not have sufficient permissions to run job instance.
+
+
+            * InvalidJobType - The requested job type is invalid.
+
+
+            * TooManyRequestsForJobs - The caller requests too many on-demand job requests.
+
+
+            * ItemNotFound - Requested item ID not found.'
+          content:
+            application/json:
+              schema:
+                $ref: ../common/definitions.json#/definitions/ErrorResponse
+      x-ms-examples:
+        Run dataflow Execute job instance with no request body example:
+          $ref: ./examples/RunOnDemandDataflowExecuteJob.json
+        Run dataflow Execute job instance with request body containing parameters example:
+          $ref: ./examples/RunOnDemandDataflowExecuteJobWithParameters.json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./definitions.json#/definitions/RunOnDemandDataflowExecuteJobRequest
+        description: Run on-demand item job request payload.
+  /workspaces/{workspaceId}/dataflows/{dataflowId}/jobs/applyChanges/instances:
+    post:
+      summary: Run on-demand apply changes job instance
+      description: '> [!NOTE]
+
+        > This API is part of a Preview release and is provided for evaluation and development purposes only. It may change based on feedback and is not recommended for production use.
+
+
+        > [!NOTE]
+
+        > The URL for this API has been updated to include the job type as part of the path, replacing the previous use of a query parameter. For backward compatibility, invocations using the query parameter are still supported.
+
+
+        ## Required Delegated Scopes
+
+
+        For dataflows APIs use these scope types:
+
+        - Specific scope: Dataflow.Execute.All
+
+
+        for more information about scopes, see: scopes article.
+
+
+        ## Microsoft Entra supported identities
+
+
+        This API supports the Microsoft identities listed in this section.
+
+
+        | Identity | Support |
+
+        |-|-|
+
+        | User | Yes |
+
+        | Service principal and Managed identities | No |
+
+
+        ## Interface'
+      tags:
+      - Background Jobs
+      operationId: BackgroundJobs_RunOnDemandApplyChanges
+      parameters:
+      - in: path
+        name: workspaceId
+        description: The workspace ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: path
+        name: dataflowId
+        description: The dataflow ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '202':
+          description: 'Request accepted, job execution is in progress.
+
+
+            ---
+
+            **Headers:**
+
+
+            **Location** `string` - The URL to the job instance resource.
+
+
+            **Retry-After** `integer` - The number of seconds the client should wait before polling the job status for the first time. Clients must use this value to determine when to check the job status and should wait at least this many seconds before the first status poll.'
+        '429':
+          description: The service rate limit was exceeded. The server returns a `Retry-After` header indicating, in seconds, how long the client must wait before sending additional requests.
+          x-ms-error-response: true
+          headers:
+            Retry-After:
+              description: The number of seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: ../common/definitions.json#/definitions/ErrorResponse
+        default:
+          description: 'Common error codes:
+
+
+            * InsufficientPrivileges - The caller does not have sufficient permissions to run job instance.
+
+
+            * InvalidJobType - The requested job type is invalid.
+
+
+            * TooManyRequestsForJobs - The caller requests too many on-demand job requests.
+
+
+            * ItemNotFound - Requested item ID not found.'
+          content:
+            application/json:
+              schema:
+                $ref: ../common/definitions.json#/definitions/ErrorResponse
+      x-ms-examples:
+        Run dataflow ApplyChanges job instance example:
+          $ref: ./examples/RunOnDemandDataflowApplyChangesJob.json

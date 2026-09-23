@@ -1,0 +1,786 @@
+openapi: 3.2.0
+info:
+  title: Dataflow REST Items API
+  version: v1
+servers:
+- url: https://api.fabric.microsoft.com/v1
+security: []
+tags:
+- name: Items
+paths:
+  /workspaces/{workspaceId}/dataflows:
+    get:
+      summary: Returns a list of Dataflows from the specified workspace
+      description: 'This API supports pagination.
+
+
+        ## Permissions
+
+
+        The caller must have a *viewer* workspace role.
+
+
+        ## Required Delegated Scopes
+
+
+        Workspace.Read.All or Workspace.ReadWrite.All
+
+
+        ## Microsoft Entra supported identities
+
+
+        This API supports the Microsoft identities listed in this section.
+
+
+        | Identity | Support |
+
+        |-|-|
+
+        | User | Yes |
+
+        | Service principal and Managed identities | Yes |
+
+
+        ## Interface'
+      tags:
+      - Items
+      operationId: Items_ListDataflows
+      x-ms-pageable:
+        nextLinkName: continuationUri
+      parameters:
+      - in: path
+        name: workspaceId
+        description: The workspace ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: recursive
+        description: Lists items in a folder and its nested folders, or just a folder only. True - All items in the folder and its nested folders are listed, False - Only items in the folder are listed. The default value is true.
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: rootFolderId
+        description: This parameter allows users to filter items based on a specific root folder. If not provided, the workspace is used as the root folder.
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: continuationToken
+        description: A token for retrieving the next page of results.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Request completed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: ./definitions.json#/definitions/Dataflows
+        '429':
+          description: The service rate limit was exceeded. The server returns a `Retry-After` header indicating, in seconds, how long the client must wait before sending additional requests.
+          x-ms-error-response: true
+          headers:
+            Retry-After:
+              description: The number of seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: ../common/definitions.json#/definitions/ErrorResponse
+        default:
+          description: 'Common error codes:
+
+
+            * InvalidItemType - Invalid item type.'
+          content:
+            application/json:
+              schema:
+                $ref: ../common/definitions.json#/definitions/ErrorResponse
+      x-ms-examples:
+        List Dataflows in workspace example:
+          $ref: ./examples/ListDataflowsInWorkspace.json
+    post:
+      summary: Creates a Dataflow in the specified workspace
+      description: 'This API supports long running operations (LRO).
+
+
+        To create Dataflow with a public definition, refer to Dataflow article.
+
+
+        ## Permissions
+
+        The caller must have a *contributor* workspace role.
+
+
+        ## Required Delegated Scopes
+
+
+        Dataflow.ReadWrite.All or Item.ReadWrite.All
+
+
+        ## Limitations
+
+        - To create a Dataflow the workspace must be on a supported Fabric capacity. For more information see: Microsoft Fabric license types.
+
+
+        ## Microsoft Entra supported identities
+
+
+        This API supports the Microsoft identities listed in this section.
+
+
+        | Identity | Support |
+
+        |-|-|
+
+        | User | Yes |
+
+        | Service principal and Managed identities | Yes |
+
+
+        ## Interface'
+      tags:
+      - Items
+      operationId: Items_CreateDataflow
+      x-ms-fabric-sdk-long-running-operation: true
+      parameters:
+      - in: path
+        name: workspaceId
+        description: The workspace ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '201':
+          description: Successfully created
+          content:
+            application/json:
+              schema:
+                $ref: ./definitions.json#/definitions/Dataflow
+        '202':
+          description: Request accepted, Dataflow provisioning in progress.
+          headers:
+            Location:
+              description: The URL of the operation status, which can be used to track the operation state.
+              schema:
+                type: string
+            x-ms-operation-id:
+              description: The operation ID which can be used with long running operations (LRO) APIs to track the operation state and get the result.
+              schema:
+                type: string
+                format: uuid
+            Retry-After:
+              description: The number of seconds to wait before retrying the request.
+              schema:
+                type: integer
+        '429':
+          description: The service rate limit was exceeded. The server returns a `Retry-After` header indicating, in seconds, how long the client must wait before sending additional requests.
+          x-ms-error-response: true
+          headers:
+            Retry-After:
+              description: The number of seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: ../common/definitions.json#/definitions/ErrorResponse
+        default:
+          description: 'Common error codes:
+
+
+            * InvalidItemType - Item type is invalid
+
+
+            * ItemDisplayNameAlreadyInUse - Item display name is already used.
+
+
+            * CorruptedPayload - The provided payload is corrupted.'
+          content:
+            application/json:
+              schema:
+                $ref: ../common/definitions.json#/definitions/ErrorResponse
+      x-ms-examples:
+        Create a Dataflow example:
+          $ref: ./examples/CreateDataflowWithoutDefinition.json
+        Create a Dataflow with public definition example:
+          $ref: ./examples/CreateDataflow.json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./definitions.json#/definitions/CreateDataflowRequest
+        description: Create item request payload.
+        required: true
+  /workspaces/{workspaceId}/dataflows/{dataflowId}:
+    get:
+      summary: Returns properties of the specified Dataflow
+      description: '## Permissions
+
+
+        The caller must have *read* permissions for the dataflow.
+
+
+        ## Required Delegated Scopes
+
+
+        Dataflow.Read.All or Dataflow.ReadWrite.All or Item.Read.All or Item.ReadWrite.All
+
+
+        ## Microsoft Entra supported identities
+
+
+        This API supports the Microsoft identities listed in this section.
+
+
+        | Identity | Support |
+
+        |-|-|
+
+        | User | Yes |
+
+        | Service principal and Managed identities | Yes |
+
+
+        ## Interface'
+      tags:
+      - Items
+      operationId: Items_GetDataflow
+      parameters:
+      - in: path
+        name: workspaceId
+        description: The workspace ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: path
+        name: dataflowId
+        description: The Dataflow ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Request completed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: ./definitions.json#/definitions/Dataflow
+        '429':
+          description: The service rate limit was exceeded. The server returns a `Retry-After` header indicating, in seconds, how long the client must wait before sending additional requests.
+          x-ms-error-response: true
+          headers:
+            Retry-After:
+              description: The number of seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: ../common/definitions.json#/definitions/ErrorResponse
+        default:
+          description: 'Common error codes:
+
+
+            * ItemNotFound - The requested item was not found.'
+          content:
+            application/json:
+              schema:
+                $ref: ../common/definitions.json#/definitions/ErrorResponse
+      x-ms-examples:
+        Get a Dataflow example:
+          $ref: ./examples/GetDataflow.json
+    patch:
+      summary: Updates the properties of the specified Dataflow
+      description: '## Permissions
+
+
+        The caller must have *read and write* permissions for the dataflow.
+
+
+        ## Required Delegated Scopes
+
+
+        Dataflow.ReadWrite.All or Item.ReadWrite.All
+
+
+        ## Microsoft Entra supported identities
+
+
+        This API supports the Microsoft identities listed in this section.
+
+
+        | Identity | Support |
+
+        |-|-|
+
+        | User | Yes |
+
+        | Service principal and Managed identities | Yes |
+
+
+        ## Interface'
+      tags:
+      - Items
+      operationId: Items_UpdateDataflow
+      parameters:
+      - in: path
+        name: workspaceId
+        description: The workspace ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: path
+        name: dataflowId
+        description: The Dataflow ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Request completed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: ./definitions.json#/definitions/Dataflow
+        '429':
+          description: The service rate limit was exceeded. The server returns a `Retry-After` header indicating, in seconds, how long the client must wait before sending additional requests.
+          x-ms-error-response: true
+          headers:
+            Retry-After:
+              description: The number of seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: ../common/definitions.json#/definitions/ErrorResponse
+        default:
+          description: "Common error codes:\n\n* ItemNotFound - The requested item was not found. \n\n* InvalidRequest - Invalid update request."
+          content:
+            application/json:
+              schema:
+                $ref: ../common/definitions.json#/definitions/ErrorResponse
+      x-ms-examples:
+        Update a Dataflow example:
+          $ref: ./examples/UpdateDataflow.json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./definitions.json#/definitions/UpdateDataflowRequest
+        description: Update Dataflow request payload.
+        required: true
+    delete:
+      summary: Deletes the specified Dataflow
+      description: '## Permissions
+
+
+        The caller must have *write* permissions for the dataflow.
+
+
+        ## Required Delegated Scopes
+
+
+        Dataflow.ReadWrite.All or Item.ReadWrite.All
+
+
+        ## Microsoft Entra supported identities
+
+
+        This API supports the Microsoft identities listed in this section.
+
+
+        | Identity | Support |
+
+        |-|-|
+
+        | User | Yes |
+
+        | Service principal and Managed identities | Yes |
+
+
+        ## Interface'
+      tags:
+      - Items
+      operationId: Items_DeleteDataflow
+      parameters:
+      - in: path
+        name: workspaceId
+        description: The workspace ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: path
+        name: dataflowId
+        description: The Dataflow ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: hardDelete
+        description: Specifies whether to perform a hard delete. When set to `true`, the item is permanently deleted and cannot be recovered. When set to `false` or not specified, the item is soft-deleted if the item type supports it.
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Request completed successfully.
+        '429':
+          description: The service rate limit was exceeded. The server returns a `Retry-After` header indicating, in seconds, how long the client must wait before sending additional requests.
+          x-ms-error-response: true
+          headers:
+            Retry-After:
+              description: The number of seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: ../common/definitions.json#/definitions/ErrorResponse
+        default:
+          description: 'Common error codes:
+
+
+            * ItemNotFound - The requested item was not found.
+
+
+            * InsufficientWorkspaceRole - User doesn''t have sufficient workspace role.
+
+
+            * FeatureNotAvailable - This could be due to the soft deletion feature not being available.
+
+
+            * UnsupportedItemType - This could be due to the soft deletion feature not supported by the requested item type.
+
+
+            * TenantSwitchDisabled - This could be due to the soft deletion feature being disabled by the tenant admin.
+
+
+            * InvalidTargetItemStateForSoftDeletion - The item is in invalid states for soft deletion.
+
+
+            * InvalidParentItemStateForSoftDeletion - The item''s parent item is not in Active state.'
+          content:
+            application/json:
+              schema:
+                $ref: ../common/definitions.json#/definitions/ErrorResponse
+      x-ms-examples:
+        Delete a Dataflow example:
+          $ref: ./examples/DeleteDataflow.json
+        Hard delete a Dataflow example:
+          $ref: ./examples/HardDeleteDataflow.json
+  /workspaces/{workspaceId}/dataflows/{dataflowId}/getDefinition:
+    post:
+      summary: Returns the specified Dataflow public definition
+      description: 'This API supports long running operations (LRO).
+
+
+        When you get a Dataflow''s public definition, the sensitivity label is not a part of the definition.
+
+
+        ## Permissions
+
+
+        The caller must have *read and write* permissions for the dataflow.
+
+        ## Required Delegated Scopes
+
+
+        Dataflow.ReadWrite.All or Item.ReadWrite.All
+
+
+        ## Microsoft Entra supported identities
+
+
+        This API supports the Microsoft identities listed in this section.
+
+
+        | Identity | Support |
+
+        |-|-|
+
+        | User | Yes |
+
+        | Service principal and Managed identities | Yes |
+
+
+        ## Interface'
+      tags:
+      - Items
+      operationId: Items_GetDataflowDefinition
+      x-ms-fabric-sdk-long-running-operation: true
+      parameters:
+      - in: path
+        name: workspaceId
+        description: The workspace ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: path
+        name: dataflowId
+        description: The Dataflow ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: format
+        description: The format of the dataflow public definition.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Request completed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: ./definitions.json#/definitions/DataflowDefinitionResponse
+        '202':
+          description: Request accepted. Retrieving the definition is in progress.
+          headers:
+            Location:
+              description: The URL of the operation status, which can be used to track the operation state.
+              schema:
+                type: string
+            x-ms-operation-id:
+              description: The operation ID which can be used with long running operations (LRO) APIs to track the operation state and get the result.
+              schema:
+                type: string
+                format: uuid
+            Retry-After:
+              description: The number of seconds to wait before retrying the request.
+              schema:
+                type: integer
+        '429':
+          description: The service rate limit was exceeded. The server returns a `Retry-After` header indicating, in seconds, how long the client must wait before sending additional requests.
+          x-ms-error-response: true
+          headers:
+            Retry-After:
+              description: The number of seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: ../common/definitions.json#/definitions/ErrorResponse
+        default:
+          description: 'Common error codes:
+
+
+            * OperationNotSupportedForItem - Operation not supported for requested item.'
+          content:
+            application/json:
+              schema:
+                $ref: ../common/definitions.json#/definitions/ErrorResponse
+      x-ms-examples:
+        Get a Dataflow public definition example:
+          $ref: ./examples/GetDataflowDefinition.json
+  /workspaces/{workspaceId}/dataflows/{dataflowId}/updateDefinition:
+    post:
+      summary: Overrides the definition for the specified Dataflow
+      description: 'This API supports long running operations (LRO).
+
+
+        Updating the Dataflow''s definition, does not affect its sensitivity label.
+
+
+        ## Permissions
+
+
+        The caller must have *read and write* permissions for the dataflow.
+
+        ## Required Delegated Scopes
+
+
+        Dataflow.ReadWrite.All or Item.ReadWrite.All
+
+
+        ## Microsoft Entra supported identities
+
+
+        This API supports the Microsoft identities listed in this section.
+
+
+        | Identity | Support |
+
+        |-|-|
+
+        | User | Yes |
+
+        | Service principal and Managed identities | Yes |
+
+
+        ## Interface'
+      tags:
+      - Items
+      operationId: Items_UpdateDataflowDefinition
+      x-ms-fabric-sdk-long-running-operation: true
+      parameters:
+      - in: path
+        name: workspaceId
+        description: The workspace ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: path
+        name: dataflowId
+        description: The Dataflow ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: updateMetadata
+        description: When set to true and the .platform file is provided as part of the definition, the item's metadata is updated using the metadata in the .platform file
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Request completed successfully.
+        '202':
+          description: Request accepted. Update definition is in progress.
+          headers:
+            Location:
+              description: The URL of the operation status, which can be used to track the operation state.
+              schema:
+                type: string
+            x-ms-operation-id:
+              description: The operation ID which can be used with long running operations (LRO) APIs to track the operation state and get the result.
+              schema:
+                type: string
+                format: uuid
+            Retry-After:
+              description: The number of seconds to wait before retrying the request.
+              schema:
+                type: integer
+        '429':
+          description: The service rate limit was exceeded. The server returns a `Retry-After` header indicating, in seconds, how long the client must wait before sending additional requests.
+          x-ms-error-response: true
+          headers:
+            Retry-After:
+              description: The number of seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: ../common/definitions.json#/definitions/ErrorResponse
+        default:
+          description: "Common error codes:\n\n* OperationNotSupportedForItem - Operation not supported for requested item. \n\n* CorruptedPayload - The provided payload is corrupted."
+          content:
+            application/json:
+              schema:
+                $ref: ../common/definitions.json#/definitions/ErrorResponse
+      x-ms-examples:
+        Update a Dataflow public definition example:
+          $ref: ./examples/UpdateDataflowDefinition.json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./definitions.json#/definitions/UpdateDataflowDefinitionRequest
+        description: Update Dataflow definition request payload.
+        required: true
+  /workspaces/{workspaceId}/dataflows/{dataflowId}/parameters:
+    get:
+      summary: Retrieves all parameters defined in the specified Dataflow
+      description: '## Permissions
+
+
+        The caller must have *read* permissions for the dataflow.
+
+
+        ## Required Delegated Scopes
+
+
+        Dataflow.Read.All or Dataflow.ReadWrite.All or Item.Read.All or Item.ReadWrite.All
+
+
+        ## Microsoft Entra supported identities
+
+
+        This API supports the Microsoft identities listed in this section.
+
+
+        | Identity | Support |
+
+        |-|-|
+
+        | User | Yes |
+
+        | Service principal and Managed identities | Yes |
+
+
+        ## Interface'
+      tags:
+      - Items
+      operationId: Items_DiscoverDataflowParameters
+      x-ms-pageable:
+        nextLinkName: continuationUri
+      parameters:
+      - in: path
+        name: workspaceId
+        description: The workspace ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: path
+        name: dataflowId
+        description: The Dataflow ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: continuationToken
+        description: A token for retrieving the next page of results.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Request completed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: ./definitions.json#/definitions/DataflowParameters
+        '429':
+          description: The service rate limit was exceeded. The server returns a `Retry-After` header indicating, in seconds, how long the client must wait before sending additional requests.
+          x-ms-error-response: true
+          headers:
+            Retry-After:
+              description: The number of seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: ../common/definitions.json#/definitions/ErrorResponse
+        default:
+          description: "Common error codes:\n\n* ItemNotFound - The requested item was not found \n\n* DataflowNotParametricError - The requested dataflow is not parametric"
+          content:
+            application/json:
+              schema:
+                $ref: ../common/definitions.json#/definitions/ErrorResponse
+      x-ms-examples:
+        Get Dataflow Parameters example:
+          $ref: ./examples/DiscoverDataflowParameters.json

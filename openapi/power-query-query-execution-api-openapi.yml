@@ -1,0 +1,159 @@
+openapi: 3.2.0
+info:
+  title: Dataflow REST Query Execution API
+  version: v1
+servers:
+- url: https://api.fabric.microsoft.com/v1
+security: []
+tags:
+- name: Query Execution
+paths:
+  /workspaces/{workspaceId}/dataflows/{dataflowId}/executeQuery:
+    post:
+      summary: Executes a query against a dataflow and returns the result
+      description: 'Executes a specified query against a dataflow and streams the result back to the caller. Supports using custom mashup documents for advanced scenarios.
+
+
+        This API supports long running operations (LRO).
+
+
+        ## Permissions
+
+
+        The caller must have *execute* permissions for the dataflow.
+
+
+        ## Required Delegated Scopes
+
+
+        Dataflow.Execute.All or Item.Execute.All.
+
+
+        ## Limitations
+
+
+        Queries can run for a maximum of 90 seconds.
+
+
+        ## Microsoft Entra supported identities
+
+
+        This API supports the Microsoft identities listed in this section.
+
+
+        | Identity | Support |
+
+        |-|-|
+
+        | User | Yes |
+
+        | Service principal and Managed identities | Yes |
+
+
+        ## Response formats
+
+
+        Use the `Accept` header to negotiate the response media type. Today, the Apache Arrow streaming format is the only available response format; additional formats may be offered in the future.
+
+
+        ### Apache Arrow streaming format
+
+
+        **Media type:** `application/vnd.apache.arrow.stream`
+
+
+        When sending this media type, the `pq-arrow-version` media-type parameter is **required** and selects the Arrow encoding version:
+
+
+        - `pq-arrow-version=1` — Original Apache Arrow encoding. Compatible with all dataflows, including those that connect through an on-premises data gateway.
+
+        - `pq-arrow-version=2` — Newer Apache Arrow encoding with improved streaming performance. Not supported for dataflows that connect through an on-premises data gateway.
+
+
+        Example: `Accept: application/vnd.apache.arrow.stream;pq-arrow-version=2`
+
+
+        If the `Accept` header is omitted entirely (or `*/*` is sent), the response defaults to `application/vnd.apache.arrow.stream;pq-arrow-version=1`.
+
+
+        ## Interface'
+      tags:
+      - Query Execution
+      operationId: QueryExecution_ExecuteQuery
+      x-ms-fabric-sdk-long-running-operation: true
+      parameters:
+      - in: path
+        name: workspaceId
+        description: The workspace ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: path
+        name: dataflowId
+        description: The Dataflow ID.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: header
+        name: Accept
+        description: The desired media type of the response. See the operation description for the list of supported response formats. Today, only `application/vnd.apache.arrow.stream` is supported; when sending this media type, the `pq-arrow-version` parameter is required and must be either `1` or `2` (e.g. `application/vnd.apache.arrow.stream;pq-arrow-version=1`). If the header is omitted entirely, the default `application/vnd.apache.arrow.stream;pq-arrow-version=1` is used.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'Query result was successfully streamed. The response body is encoded in the media type negotiated via the request''s `Accept` header (see the operation description for the list of supported response formats).
+
+
+            When the response is in the Apache Arrow streaming format (`application/vnd.apache.arrow.stream`, the only format available today), results are streamed as Apache Arrow IPC; the Arrow encoding version returned matches the `pq-arrow-version` parameter sent on the request''s `Accept` header (default `1`). Refer to the [Arrow documentation](https://arrow.apache.org/docs/python/ipc.html#reading-from-stream-and-file-format-for-pandas) on how to read the stream in Python and other languages. Errors encountered during query execution or streaming are reported in an additional column at the end named ''PQ Arrow Metadata''.'
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
+        '202':
+          description: Request accepted, query execution in progress.
+          headers:
+            Location:
+              description: The URL of the operation status, which can be used to track the operation state.
+              schema:
+                type: string
+            x-ms-operation-id:
+              description: The operation ID which can be used with long running operations (LRO) APIs to track the operation state and get the result.
+              schema:
+                type: string
+                format: uuid
+            Retry-After:
+              description: The number of seconds to wait before retrying the request.
+              schema:
+                type: integer
+        '429':
+          description: The service rate limit was exceeded. The server returns a `Retry-After` header indicating, in seconds, how long the client must wait before sending additional requests.
+          x-ms-error-response: true
+          headers:
+            Retry-After:
+              description: The number of seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: ../common/definitions.json#/definitions/ErrorResponse
+        default:
+          description: 'Common error codes:
+
+
+            * DataflowExecuteQueryError - Query execution failed. Some possible reasons include: the specified query name is invalid or empty, the custom mashup document is invalid, or the specified query name was not found in the dataflow (or in the custom mashup document if provided).'
+          content:
+            application/json:
+              schema:
+                $ref: ../common/definitions.json#/definitions/ErrorResponse
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./definitions.json#/definitions/ExecuteQueryRequest
+        description: Execute query request payload.
+        required: true

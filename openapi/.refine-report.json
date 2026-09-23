@@ -1,0 +1,34 @@
+{
+  "provider": "power-query",
+  "sources": [
+    "_original/power-query-fabric-common-definitions.json",
+    "_original/power-query-fabric-dataflow-definitions.json",
+    "_original/power-query-fabric-dataflow-swagger.json"
+  ],
+  "outputs": [
+    "power-query-backgroundjobs-api-openapi.yml",
+    "power-query-items-api-openapi.yml",
+    "power-query-queryexecution-api-openapi.yml"
+  ],
+  "archived": [
+    "deleted 2 superseded output(s) from the previous generation"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (3 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "power-query-fabric-common-definitions.json: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "power-query-fabric-dataflow-definitions.json: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "power-query-fabric-dataflow-swagger.json: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "power-query-fabric-dataflow-swagger.json: declared missing tag: BackgroundJobs",
+    "power-query-fabric-dataflow-swagger.json: declared missing tag: Items",
+    "power-query-fabric-dataflow-swagger.json: declared missing tag: QueryExecution",
+    "superseded outputs removed: power-query-background-jobs-api-openapi.yml, power-query-query-execution-api-openapi.yml",
+    "apis.yml register: written (+2 apis, 7 total)"
+  ],
+  "skipped": [
+    "power-query-background-jobs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "power-query-items-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "power-query-query-execution-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}
