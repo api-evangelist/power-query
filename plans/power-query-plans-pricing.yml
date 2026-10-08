@@ -144,3 +144,50 @@ maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
     url: https://apievangelist.com
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - metered
+  - subscription
+  units: []
+  plans:
+  - name: Power Query (in Excel / Power BI Desktop)
+    access: free
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: Power BI Free account
+    access: freemium
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: Power BI Pro
+    access: paid
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods: []
+  - name: Power BI Premium Per User
+    access: paid
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods: []
+  - name: Power BI Embedded
+    access: other
+    model: metered
+    model_how: stated
+    units: []
+    periods: []
+  - name: Microsoft Fabric Capacity (F SKUs)
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
