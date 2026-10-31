@@ -1,4 +1,4 @@
-# Power Query (power-query)
+# Power Query
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,71 +64,156 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Power Query is a data transformation and mashup engine used across Microsoft products including Excel, Power BI, and Azure.
+Power Query is Microsoft's data connectivity and transformation engine, driven by the M formula language. It ships inside Excel, Power BI Desktop, Analysis Services, Azure Data Factory and Microsoft Fabric, and reaches 300+ data sources through built-in and custom connectors built with the MIT-licensed Power Query SDK. Its programmatic surface is the Microsoft Fabric Dataflow REST API on api.fabric.microsoft.com: thirteen Swagger-documented operations that create, read, update and delete dataflows, publish and retrieve their Power Query definitions, discover their parameters, schedule execute and applyChanges jobs, and execute an M query against a dataflow on demand. Authentication is Microsoft Entra ID OAuth 2.0 with delegated Dataflow.* and Item.* scopes layered on top of Fabric workspace roles.
 
-**URL:** [https://raw.githubusercontent.com/api-evangelist/power-query/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/power-query/refs/heads/main/apis.yml)
+**Areas:** Business Intelligence · Data Integration · Data Transformation · ETL · Microsoft · Microsoft Fabric · Power BI · Dataflows · M Language · Data Connectors · Self-Service ETL
 
-**Run:** [Capabilities Using Naftiko](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=company-api-evangelist&utm_content=repo)
+## Power Query on APIs.io
 
-## Tags:
+Everything profiled for Power Query is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/power-query/](https://apis.io/providers/power-query/)** — or go straight to one of the APIs or properties below.
 
- - Business Intelligence, Data Integration, Data Transformation, ETL, Microsoft
+### APIs (7)
 
-## Timestamps
+- [Power Query M Formula Language](https://apis.io/apis/power-query/m-language/) — API and language reference for the M formula language used in Power Query for data transformation expressions and custom functions.
+- [Power Query Connectors API](https://apis.io/apis/power-query/connectors-api/) — API for building and managing custom data connectors for Power Query using the M language and Connector SDK.
+- [Power Query Dataflows API](https://apis.io/apis/power-query/dataflows-api/) — API for managing and executing Power Query dataflows in Power Platform and Power BI for self-service ETL workflows.
+- [Power Query SDK](https://apis.io/apis/power-query/sdk/) — Development toolkit for building custom Power Query connectors using Visual Studio Code, including project scaffolding, testing, and packaging of .mez…
+- [Power Query Items API](https://apis.io/apis/power-query/power-query-items-api/) — The Items API from Power Query — 5 operation(s) for items.
+- [Power Query Background Jobs API](https://apis.io/apis/power-query/power-query-background-jobs-api/) — The Background Jobs API from Power Query — 4 operation(s) for background jobs.
+- [Power Query Query Execution API](https://apis.io/apis/power-query/power-query-query-execution-api/) — The Query Execution API from Power Query — 1 operation(s) for query execution.
 
-- **Created:** 2024-01-01
-- **Modified:** 2026-04-18
+### Published properties
 
-## APIs
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-### Power Query REST API
-REST API for executing Power Query mashups and managing data transformations.
+#### MCP servers (1)
 
-### Power Query M Formula Language
-API and language reference for the M formula language.
+Model Context Protocol servers that expose the API to agents.
 
-### Power Query Connectors API
-API for building custom data connectors.
+- [Microsoft Learn MCP Server](https://apis.io/servers/power-query/microsoft-learn-mcp-server/)
 
-### Power Query Dataflows API
-API for managing Power Query dataflows in Power Platform.
+#### JSON-LD (1)
 
-### Power Query SDK
-Development toolkit for building custom connectors.
+Linked-data contexts for the provider's vocabulary.
 
-### Fabric Power Query Programmatic API
-REST API for executing Power Query in Microsoft Fabric.
+- [Power Query Context](https://apis.io/jsonld/power-query/power-query-context/)
 
-## Features
+#### Vocabulary (1)
 
-| Name | Description |
-|------|-------------|
-| Data Transformation Engine | Powerful M formula language for complex data transformations. |
-| Custom Connector Development | Build custom data connectors using the Power Query SDK. |
-| Self-Service ETL | Dataflows for self-service ETL without IT dependency. |
-| 300+ Built-In Connectors | Pre-built connectors for databases, cloud services, and APIs. |
-| Incremental Refresh | Efficient data loading with incremental refresh policies. |
+The provider's domain terms, defined.
 
-## Use Cases
+- [Power Query Vocabulary](https://apis.io/vocabularies/power-query/power-query-vocabulary/)
 
-| Name | Description |
-|------|-------------|
-| Data Preparation | Clean, transform, and shape data from multiple sources. |
-| Custom Data Connectors | Build connectors for proprietary data sources. |
-| Automated Data Pipelines | Create scheduled dataflows for automated transformation. |
-| Cross-Platform Data Integration | Integrate data across Power BI, Excel, and Fabric. |
+#### Overlays (4)
 
-## Integrations
+OpenAPI overlays, including conversational phrasing for each operation.
 
-| Name | Description |
-|------|-------------|
-| Power BI | Native integration for data preparation and visualization. |
-| Microsoft Excel | Built-in Power Query editor in Excel. |
-| Azure Data Factory | Mapping data flows using Power Query transformations. |
-| Microsoft Fabric | Programmatic execution in Fabric notebooks and pipelines. |
-| SQL Server | Direct connectivity with query folding optimization. |
+- [Power Query Background Jobs Api Phrasing Overlay](https://apis.io/overlays/power-query/power-query-background-jobs-api-phrasing-overlay/)
+- [Power Query Fabric Dataflow Overlay](https://apis.io/overlays/power-query/power-query-fabric-dataflow-overlay/)
+- [Power Query Items Api Phrasing Overlay](https://apis.io/overlays/power-query/power-query-items-api-phrasing-overlay/)
+- [Power Query Query Execution Api Phrasing Overlay](https://apis.io/overlays/power-query/power-query-query-execution-api-phrasing-overlay/)
 
-## Maintainers
+#### Security (4)
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Power Query Authentication](https://apis.io/security/power-query/power-query-authentication/)
+- [Power Query Domain Security](https://apis.io/security/power-query/power-query-domain-security/)
+- [Power Query Trust Center](https://apis.io/security/power-query/power-query-trust-center/)
+- [Power Query Vulnerability Disclosure](https://apis.io/security/power-query/power-query-vulnerability-disclosure/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Power Query Scopes](https://apis.io/scopes/power-query/power-query-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Power Query Plans Pricing](https://apis.io/plans/power-query/power-query-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Power Query Rate Limits](https://apis.io/rate-limits/power-query/power-query-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Power Query Finops](https://apis.io/finops/power-query/power-query-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://powerquery.microsoft.com/)
+- [Documentation](https://learn.microsoft.com/en-us/power-query/)
+- [Getting started](https://www.microsoft.com/en-us/power-platform/products/power-bi/getting-started-with-power-bi)
+- [API reference](https://learn.microsoft.com/en-us/powerquery-m/power-query-m-function-reference)
+- [Pricing](https://powerbi.microsoft.com/pricing/)
+- [Support](https://powerbi.microsoft.com/en-us/support/)
+- [Changelog](https://learn.microsoft.com/en-us/power-bi/fundamentals/desktop-change-log)
+- [Blog](https://powerbi.microsoft.com/blog/)
+- [Terms of service](https://www.microsoft.com/en-us/servicesagreement/)
+- [Privacy policy](https://privacy.microsoft.com/en-us/privacystatement)
+- [GitHub](https://github.com/microsoft)
+- [Status](https://support.fabric.microsoft.com/)
+
+## API Evangelist rating
+
+**Kin Score 74.4** — exemplar · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 86.7 |
+| Contract quality | 52.4 |
+| Contract governance | 18.2 |
+| Operational transparency | 89.5 |
+| Developer ergonomics | 80.4 |
+| Access clarity | 92.1 |
+
+**Agent readiness 35.9** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | platform (partial credit) |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | documented (partial credit) |
+| Rate Limit Signal | verified |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 43.4** — Energy & Utilities
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/power-query/](https://apis.io/providers/power-query/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Power Query: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/power-query/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
