@@ -2,6 +2,7 @@
 generated: '2026-10-28'
 method: searched
 source: https://www.microsoft.com/en-us/power-platform/products/power-bi/pricing
+name: Power Query API Plans
 sources:
 - https://www.microsoft.com/en-us/power-platform/products/power-bi/pricing
 - https://powerbi.microsoft.com/pricing/
@@ -53,7 +54,7 @@ rate_limit_statements:
 - Maximum storage (native storage)8 10 GB/license
 - 100 TB
 x-canonical:
-  generated: '2026-11-02'
+  generated: '2026-11-06'
   vocabulary: engine/economics/plans-canonical.yml
   models:
   - seat
